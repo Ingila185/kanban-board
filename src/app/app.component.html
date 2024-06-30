@@ -1,12 +1,12 @@
 <main>
-  <div class="flex flex-column gap-2  justify-content-around">
+  <div class="flex gap-2  justify-content-around">
     <div class="">
       <h2>To Do Items</h2>
       <app-to-do-card [droppedItemFromInProgress]="droppedItemFromInProgressToToDo"
         (onDragStart)="showData($event)"></app-to-do-card>
     </div>
 
-    <p-divider class="p-divider" layout="horizontal" />
+    <p-divider class="p-divider" layout="vertical" />
 
 
     <div class="">
@@ -17,7 +17,7 @@
         (onDragInProgressStart)="sendDataToToDoList($event)"></app-implementing-card>
     </div>
 
-    <p-divider class="p-divider" layout="horizontal" />
+    <p-divider class="p-divider" layout="vertical" />
 
     <div class="">
       <h2>Done Items</h2>

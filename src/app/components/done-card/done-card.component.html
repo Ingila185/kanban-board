@@ -1,9 +1,9 @@
-<div pDroppable (onDrop)="drop()" class="flex gap-2 flex-wrap text-sm" >
+<div pDroppable (onDrop)="drop()" class="flex flex-column gap-2 flex-wrap text-sm" >
     @for (item of allDoneItems();  track item){
         <div pDraggable 
         (onDragStart)="dragStart(item)" 
         (onDragEnd)="dragEnd()"
-        class="w-5 h-5 ">
+        class="w-10 h-5 ">
         <p-card class="text-sm"  header= {{item.name}} subheader={{item.id}}>
                
                 <p class="text-sm" >
