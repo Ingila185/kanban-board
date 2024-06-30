@@ -1,24 +1,31 @@
-<main >
-   <div class="flex flex-column gap-2  justify-content-around">
+<main>
+  <div class="flex flex-column gap-2  justify-content-around">
     <div class="">
-     <h2>To Do Items</h2>
-        <app-to-do-card [droppedItemFromInProgress]  ="droppedItemFromInProgressToToDo" (onDragStart)="showData($event)" ></app-to-do-card>
+      <h2>To Do Items</h2>
+      <app-to-do-card [droppedItemFromInProgress]="droppedItemFromInProgressToToDo"
+        (onDragStart)="showData($event)"></app-to-do-card>
     </div>
 
-    <p-divider class="p-divider-left"  layout="horizontal"/>
+    <p-divider class="p-divider" layout="horizontal" />
 
 
     <div class="">
-     <h2>In Progress Items</h2>
+      <h2>In Progress Items</h2>
 
-<app-implementing-card [droppedItem] = "droppedItemFromTodoToInProgress" (onDragInProgressStart) = "sendDataToToDoList($event)"></app-implementing-card>
-  </div>
-  <!--
- <p-divider class="p-divider-left" layout="vertical"/>
-  
-  <div class="pt-10 m-10 surface-ground hover:surface-500 border-round surface-border border-3 text-surface-100 font-bold m-2 flex align-items-center justify-content-center" style="min-width: auto; min-height: auto">
-</div>
--->
+      <app-implementing-card [droppedItem]="droppedItemFromTodoToInProgress"
+       [droppedItemFromDone]="droppedItemFromDone"
+        (onDragInProgressStart)="sendDataToToDoList($event)"></app-implementing-card>
+    </div>
+
+    <p-divider class="p-divider" layout="horizontal" />
+
+    <div class="">
+      <h2>Done Items</h2>
+      <app-done-card (onDragStart) = "sendDataBack($event)" 
+      [droppedItemFromInProgress]="droppedItemFromDone"></app-done-card>
+
+    </div>
+
   </div>
 
 

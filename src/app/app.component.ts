@@ -20,6 +20,7 @@ import { Item } from './interfaces/item';
 export class AppComponent {
   droppedItemFromTodoToInProgress: Item | undefined | null;
   droppedItemFromInProgressToToDo: Item | undefined | null;
+  droppedItemFromDone: Item | undefined | null;
 
 
   constructor(){}
@@ -33,7 +34,14 @@ export class AppComponent {
   sendDataToToDoList(event: Item | undefined | null)
   {
     this.droppedItemFromInProgressToToDo = event;
+    this.droppedItemFromDone = event;
+    
 
+  }
+
+  sendDataBack(event: Item | undefined | null)
+  {
+    this.droppedItemFromDone = event
   }
 
 }

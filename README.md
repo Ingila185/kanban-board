@@ -8,8 +8,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 
 ## State Management
-In Angular 17, the states are managed through [signals()](https://angular.dev/guide/signals) API.
-
+- The states are managed through [signals()](https://angular.dev/guide/signals) API.
+- Component communication is managed with @Input decorator and output function.
 
 
 ## UI/UX Frameworks

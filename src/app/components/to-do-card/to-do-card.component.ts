@@ -14,9 +14,9 @@ import { DragDropModule } from 'primeng/dragdrop';
   styleUrl: './to-do-card.component.scss'
 })
 export class ToDoCardComponent {
-  @Input() droppedItemFromInProgress: Item  | undefined | null;
+  @Input() droppedItemFromInProgress: Item | undefined | null;
 
-  TO_DO_ITEMS : Item[] = TO_DO_ITEMS;
+  TO_DO_ITEMS: Item[] = TO_DO_ITEMS;
   onDragStart = output<Item | undefined | null>();
 
   selectedItem = signal<Item | undefined | null>(null);
@@ -25,33 +25,34 @@ export class ToDoCardComponent {
   dragStart(product: Item) {
     this.selectedItem.set(product);
     this.onDragStart.emit(this.selectedItem());
-    console.log("dragging start" , this.selectedItem())
+    //console.log("dragging start", this.selectedItem())
 
-}
+  }
 
-dragEnd() {
-//  console.log("Drag End" , this.selectedItem()?.id)
-  let currentLeftOverItems: Item[] | undefined | null = this.allItems()?.filter((item: Item)=>
-    {      
+  dragEnd() {
+    //  console.log("Drag End" , this.selectedItem()?.id)
+    let currentLeftOverItems: Item[] | undefined | null = this.allItems()?.filter((item: Item) => {
       return item.id != this.selectedItem()?.id
-    
+
     });
 
-  console.log(currentLeftOverItems)
+   // console.log(currentLeftOverItems)
 
-  this.allItems.set(currentLeftOverItems);
-  this.selectedItem.set(null);
+    this.allItems.set(currentLeftOverItems);
+    this.selectedItem.set(null);
 
 
-}
+  }
 
-drop() {
-  //console.log("Dropped", this.droppedItemFromInProgress )
-  let remainingInProgressItems : Item[] | undefined | null = this.allItems();
-  remainingInProgressItems?.push(this.droppedItemFromInProgress!);
-  this.allItems.set(remainingInProgressItems);
-  console.log("Updated All Items", this.allItems())   
-
-}
+  drop() {
+    //console.log("Dropped", this.droppedItemFromInProgress )
+    if(this.droppedItemFromInProgress != null || this.droppedItemFromInProgress != undefined)
+    {
+    let remainingInProgressItems: Item[] | undefined | null = this.allItems();
+    remainingInProgressItems?.push(this.droppedItemFromInProgress!);
+    this.allItems.set(remainingInProgressItems);
+   // console.log("Updated All Items", this.allItems())
+  }
+  }
 
 }

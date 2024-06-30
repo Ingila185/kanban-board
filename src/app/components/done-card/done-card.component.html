@@ -1,8 +1,16 @@
-<p-card header="Done: " subheader="List item Done" [style]="{ width: '200px' }">
-       
-    <p>
-        To-Do: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-        quas!
-    </p>
-    
-</p-card>
+<div pDroppable (onDrop)="drop()" class="flex gap-2 flex-wrap text-sm" >
+    @for (item of allDoneItems();  track item){
+        <div pDraggable 
+        (onDragStart)="dragStart(item)" 
+        (onDragEnd)="dragEnd()"
+        class="w-5 h-5 ">
+        <p-card class="text-sm"  header= {{item.name}} subheader={{item.id}}>
+               
+                <p class="text-sm" >
+                    {{item.description}}
+                </p>
+                
+            </p-card>
+        </div>
+            }
+        </div>

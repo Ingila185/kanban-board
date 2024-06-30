@@ -17,6 +17,8 @@ import { DragDropModule } from 'primeng/dragdrop';
 })
 export class ImplementingCardComponent {
   @Input() droppedItem: Item  | undefined | null;
+  @Input() droppedItemFromDone: Item  | undefined | null;
+
 
   IN_PROGRESS_ITEMS : Item[] = IN_PROGRESS_ITEMS;
   TO_DO_ITEMS : Item[] = TO_DO_ITEMS;
@@ -27,12 +29,17 @@ export class ImplementingCardComponent {
   onDragInProgressStart = output<Item | undefined | null>();
 
   drop() {
-    console.log("Dropped", this.droppedItem )
-   let remainingInProgressItems : Item[] | undefined | null = this.inProgressItems();
+    //console.log("Dropped", this.droppedItem , this.droppedItemFromDone)
+    let dataToAdd : Item | undefined | null;
+    dataToAdd = (this.droppedItem) ? this.droppedItem : this.droppedItemFromDone;
+    this.addToInProgressItems(dataToAdd);
+  }
 
-    remainingInProgressItems?.push(this.droppedItem!);
+  addToInProgressItems(item : Item | undefined | null)
+  {
+    let remainingInProgressItems : Item[] | undefined | null = this.inProgressItems();
+    remainingInProgressItems?.push(item!);
     this.inProgressItems.set(remainingInProgressItems);
-    //console.log("Updated In Progress Items", this.inProgressItems())   
 
   }
 
@@ -40,12 +47,12 @@ export class ImplementingCardComponent {
   {
     this.selectedItem.set(item);
     this.onDragInProgressStart.emit(this.selectedItem());
-    console.log("dragging start from in-progress" , this.selectedItem())
+   // console.log("dragging start from in-progress" , this.selectedItem())
 
   }
 
   dragEnd() {
-    console.log("Drag End from in-progress" , this.selectedItem())
+  //  console.log("Drag End from in-progress" , this.selectedItem())
     let currentLeftOverItems: Item[] | undefined | null = this.inProgressItems()?.filter((item: Item)=>
       { 
        // console.log(item.id)
@@ -56,7 +63,7 @@ export class ImplementingCardComponent {
       
       });
   
-    console.log(currentLeftOverItems)
+   // console.log(currentLeftOverItems)
   
     this.inProgressItems.set(currentLeftOverItems);
     this.selectedItem.set(null);
