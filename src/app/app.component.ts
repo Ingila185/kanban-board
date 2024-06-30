@@ -18,14 +18,22 @@ import { Item } from './interfaces/item';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  droppedItem: Item | undefined | null;
-  
+  droppedItemFromTodoToInProgress: Item | undefined | null;
+  droppedItemFromInProgressToToDo: Item | undefined | null;
+
+
   constructor(){}
   title = 'kanban-board';
-  showData(event : any)
+  showData(event : Item | undefined | null)
   {
-    this.droppedItem = event;
+    this.droppedItemFromTodoToInProgress = event;
     
+  }
+
+  sendDataToToDoList(event: Item | undefined | null)
+  {
+    this.droppedItemFromInProgressToToDo = event;
+
   }
 
 }
