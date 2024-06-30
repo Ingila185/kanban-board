@@ -1,8 +1,15 @@
-<p-card header="Implementing " subheader="Implementing Item" [style]="{ width: '360px' }">
+<div pDroppable (onDrop)="drop()" class="flex flex-column gap-2" >
+
+@for (item of IN_PROGRESS_ITEMS;  track item){
+
+<p-card class="w-10 h-10"   header={{item.name}} subheader={{item.id}}>
        
     <p>
-        To-Do: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-        quas!
+        {{item.description}}
+
     </p>
     
 </p-card>
+
+}
+</div>

@@ -9,6 +9,7 @@ import { ToDoCardComponent } from './components/to-do-card/to-do-card.component'
 
 import { ImplementingCardComponent } from './components/implementing-card/implementing-card.component'; 
 import { DoneCardComponent } from './components/done-card/done-card.component';
+import { Item } from './interfaces/item';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -17,10 +18,15 @@ import { DoneCardComponent } from './components/done-card/done-card.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-
+  droppedItem: Item | undefined | null;
+  
   constructor(){}
   title = 'kanban-board';
-  
+  showData(event : any)
+  {
+    this.droppedItem = event;
+    
+  }
 
 }
 

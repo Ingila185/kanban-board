@@ -1,23 +1,27 @@
 <main >
-  <div class="pt-5  grid grid-col-3  justify-content-center gap-5">
-    <div class="surface-ground hover:surface-500 border-round surface-border border-3 text-surface-100 font-bold m-2 flex align-items-center justify-content-center" style="min-width: auto; min-height: auto">
-        <app-to-do-card></app-to-do-card>
+   <div class="flex gap-2  justify-content-center">
+    <div class="">
+     <h2>To Do Items</h2>
+        <app-to-do-card (onDragStart)="showData($event)" ></app-to-do-card>
     </div>
 
     <p-divider class="p-divider-left"  layout="vertical"/>
 
 
-    <div class="surface-ground hover:surface-500 border-round surface-border border-3 text-surface-100 font-bold m-2 flex align-items-center justify-content-center" style="min-width: auto; min-height: auto">
-      <app-implementing-card></app-implementing-card>
+    <div class="">
+     <h2>In Progress Items</h2>
 
+<app-implementing-card [droppedItem] = "droppedItem"></app-implementing-card>
   </div>
-  <p-divider class="p-divider-left" layout="vertical"/>
+  <!--
+ <p-divider class="p-divider-left" layout="vertical"/>
   
-  <div class="surface-ground hover:surface-500 border-round surface-border border-3 text-surface-100 font-bold m-2 flex align-items-center justify-content-center" style="min-width: auto; min-height: auto">
-    <app-done-card></app-done-card>
+  <div class="pt-10 m-10 surface-ground hover:surface-500 border-round surface-border border-3 text-surface-100 font-bold m-2 flex align-items-center justify-content-center" style="min-width: auto; min-height: auto">
 </div>
-
+-->
   </div>
+
+
 </main>
 
 <router-outlet />
