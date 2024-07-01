@@ -25,12 +25,12 @@ export class ToDoCardComponent {
   dragStart(product: Item) {
     this.selectedItem.set(product);
     this.onDragStart.emit(this.selectedItem());
-    //console.log("dragging start", this.selectedItem())
+    console.log("dragging start", this.selectedItem())
 
   }
 
   dragEnd() {
-    //  console.log("Drag End" , this.selectedItem()?.id)
+      console.log("Drag End in to-do" , this.selectedItem()?.id)
     let currentLeftOverItems: Item[] | undefined | null = this.allItems()?.filter((item: Item) => {
       return item.id != this.selectedItem()?.id
 
@@ -44,8 +44,10 @@ export class ToDoCardComponent {
 
   }
 
-  drop() {
-    //console.log("Dropped", this.droppedItemFromInProgress )
+  dropItem() {
+    console.log("Dropped Item in To-Do", this.droppedItemFromInProgress )
+
+    
     if(this.droppedItemFromInProgress != null || this.droppedItemFromInProgress != undefined)
     {
     let remainingInProgressItems: Item[] | undefined | null = this.allItems();

@@ -27,20 +27,26 @@ export class AppComponent {
   title = 'kanban-board';
   showData(event : Item | undefined | null)
   {
+    console.log("data from todo" , event);
+
     this.droppedItemFromTodoToInProgress = event;
     
   }
 
   sendDataToToDoList(event: Item | undefined | null)
   {
+    console.log('data from Implementing' , event)
     this.droppedItemFromInProgressToToDo = event;
+    //console.log('called' , this.droppedItemFromInProgressToToDo)
+
     this.droppedItemFromDone = event;
-    
 
   }
 
   sendDataBack(event: Item | undefined | null)
   {
+    console.log("data from done" , event);
+
     this.droppedItemFromDone = event
   }
 

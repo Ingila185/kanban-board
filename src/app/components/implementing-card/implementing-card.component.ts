@@ -18,6 +18,7 @@ import { DragDropModule } from 'primeng/dragdrop';
 export class ImplementingCardComponent {
   @Input() droppedItem: Item  | undefined | null;
   @Input() droppedItemFromDone: Item  | undefined | null;
+  onDragInProgressStart = output<Item | undefined | null>();
 
 
   IN_PROGRESS_ITEMS : Item[] = IN_PROGRESS_ITEMS;
@@ -26,10 +27,9 @@ export class ImplementingCardComponent {
   selectedItem = signal<Item | undefined | null>(null);
   inProgressItems = signal<Item[] | undefined | null>(IN_PROGRESS_ITEMS);
 
-  onDragInProgressStart = output<Item | undefined | null>();
 
   drop() {
-    //console.log("Dropped", this.droppedItem , this.droppedItemFromDone)
+    console.log("Dropped item in Implementing", this.droppedItem , this.droppedItemFromDone)
     let dataToAdd : Item | undefined | null;
     dataToAdd = (this.droppedItem) ? this.droppedItem : this.droppedItemFromDone;
     this.addToInProgressItems(dataToAdd);
@@ -47,12 +47,12 @@ export class ImplementingCardComponent {
   {
     this.selectedItem.set(item);
     this.onDragInProgressStart.emit(this.selectedItem());
-   // console.log("dragging start from in-progress" , this.selectedItem())
+    console.log("dragging start from in-progress" , this.selectedItem())
 
   }
 
   dragEnd() {
-  //  console.log("Drag End from in-progress" , this.selectedItem())
+    console.log("Drag End from in-progress" , this.selectedItem())
     let currentLeftOverItems: Item[] | undefined | null = this.inProgressItems()?.filter((item: Item)=>
       { 
        // console.log(item.id)

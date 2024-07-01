@@ -27,7 +27,7 @@ export class DoneCardComponent {
   dragStart(product: Item) {
     this.selectedItem.set(product);
     this.onDragStart.emit(this.selectedItem());
-  //  console.log("dragging start", product)
+    console.log("dragging start", product)
 
   }
 
@@ -43,7 +43,7 @@ export class DoneCardComponent {
   }
 
   drop() {
-   // console.log("Dropped", this.droppedItemFromInProgress )
+    console.log("Dropped", this.droppedItemFromInProgress )
     let dataToAdd : Item | undefined | null;
     dataToAdd =  this.droppedItemFromInProgress;
     this.addToDoneItems(dataToAdd);

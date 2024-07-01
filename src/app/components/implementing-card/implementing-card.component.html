@@ -1,4 +1,4 @@
-<div pDroppable (onDrop)="drop()" class="flex flex-column  flex-wrap gap-2" >
+<div pDroppable (onDrop)="drop()" class="flex flex-column gap-2 " >
 
 @for (item of inProgressItems();  track item){
 
@@ -6,11 +6,10 @@
 (onDragStart)="dragStart(item)" 
 (onDragEnd)="dragEnd()"
 
-class="w-10 h-5 text-sm"   
-header={{item.name}} subheader={{item.id}}>
+class="w-10 h-2 text-sm opacity-80"    subheader={{item.name}}>
        
     <p class="text-sm">
-        {{item.description}}
+      {{item.id}} -  {{item.description}}
 
     </p>
     
