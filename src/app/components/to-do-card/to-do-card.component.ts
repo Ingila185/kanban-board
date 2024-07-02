@@ -58,7 +58,7 @@ export class ToDoCardComponent {
 
   }
 
-  dropItem() {
+  drop() {
     console.log("Dropped Item in To-Do", this.droppedItemFromInProgress )
 
     

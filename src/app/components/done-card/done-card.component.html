@@ -1,4 +1,4 @@
-<div pDroppable (onDrop)="drop()" class="flex flex-column gap-2 text-sm drop-column opacity-80" >
+<div pDroppable (onDrop)="drop()" class="p-2 flex flex-column gap-2 text-sm drop-column opacity-80" >
     @for (item of allDoneItems();  track item){
         <div pDraggable 
         (onDragStart)="dragStart(item)" 

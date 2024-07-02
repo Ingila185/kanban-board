@@ -1,18 +1,14 @@
 :host ::ng-deep {
     [pDraggable] {
-        cursor: move;   
+        cursor: move;
     }
 
     .drop-column {
+        border: 1px solid transparent; border-radius: 16px;
         transition: border-color .2s;
     
         &.p-draggable-enter {
             border-color: #C55FFC 
         }
     }
-}
-
-.font-change
-{
-    font-size: large;
 }

@@ -4,7 +4,7 @@
     }
 
     .drop-column {
-        border: 1px solid transparent;
+        border: 1px solid transparent;border-radius: 16px;
         transition: border-color .2s;
     
         &.p-draggable-enter {

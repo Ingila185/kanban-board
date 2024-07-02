@@ -1,12 +1,16 @@
-<div pDroppable (onDrop)="dropItem()" class="flex flex-column  gap-2 opacity-80 drop-column" >
-@for (item of allItems();  track item){
-<div pDraggable dragEffect = "move"
-(onDragStart)="dragStart(item)" 
-(onDragEnd)="dragEnd()"
-class="p-2 w-10 h-2 text-sm opacity-80 border-1 border-round border-200 shadow-3 hover:shadow-8 	">       
-            {{item.description}}        
-</div>
+<div pDroppable (onDrop)="drop()" class="p-2 flex flex-column justify-content-center  gap-2 drop-column opacity-80" >
+
+    @for (item of allItems();  track item){
+    
+    <div pDraggable dragEffect = "move"
+    (onDragStart)="dragStart(item)" 
+    (onDragEnd)="dragEnd()"
+    
+    class=" p-2 w-10 h-2 text-sm opacity-80 border-1 border-round border-200 shadow-3 hover:shadow-8  ">       
+    {{item.description}}
+        
+    </div>
+
     }
 
-
-</div>
+    </div>
