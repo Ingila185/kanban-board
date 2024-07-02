@@ -14,7 +14,7 @@ import { Item } from './interfaces/item';
   standalone: true,
   imports: [DividerModule, RouterOutlet, MenuBarComponent, ToDoCardComponent, ImplementingCardComponent, DoneCardComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css', '../assets/css/_primetheme.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   droppedItemFromTodoToInProgress: Item | undefined | null;
