@@ -1,26 +1,24 @@
 <main>
-  <div class="flex gap-2 ">
+  <div class="flex gap-2 justify-content-center	mx-auto">
     <div class="">
-      <h2>To Do Items</h2>
+      <h4>To Do Items</h4>
       <app-to-do-card [droppedItemFromInProgress]="droppedItemFromInProgressToToDo"
         (onDragStart)="showData($event)"></app-to-do-card>
     </div>
 
-    <p-divider class="p-divider" layout="vertical" />
 
 
     <div class="">
-      <h2>In Progress Items</h2>
+      <h4>In Progress Items</h4>
 
       <app-implementing-card [droppedItem]="droppedItemFromTodoToInProgress"
        [droppedItemFromDone]="droppedItemFromDone"
         (onDragInProgressStart)="sendDataToToDoList($event)"></app-implementing-card>
     </div>
 
-    <p-divider class="p-divider" layout="vertical" />
 
     <div class="">
-      <h2>Done Items</h2>
+      <h4>Done Items</h4>
       <app-done-card (onDragStart) = "sendDataBack($event)" 
       [droppedItemFromInProgress]="droppedItemFromDone"></app-done-card>
 

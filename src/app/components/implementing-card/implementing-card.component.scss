@@ -2,4 +2,13 @@
     [pDraggable] {
         cursor: move;
     }
+
+    .drop-column {
+        border: 1px solid transparent;
+        transition: border-color .2s;
+    
+        &.p-draggable-enter {
+            border-color: #C55FFC 
+        }
+    }
 }

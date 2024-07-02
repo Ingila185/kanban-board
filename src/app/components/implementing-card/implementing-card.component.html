@@ -1,19 +1,15 @@
-<div pDroppable (onDrop)="drop()" class="flex flex-column gap-2 " >
+<div pDroppable dropEffect="move" (onDrop)="drop()" class="flex flex-column gap-2 drop-column opacity-80" >
 
 @for (item of inProgressItems();  track item){
 
-<p-card pDraggable 
+<div pDraggable dragEffect = "move"
 (onDragStart)="dragStart(item)" 
 (onDragEnd)="dragEnd()"
 
-class="w-10 h-2 text-sm opacity-80"    subheader={{item.name}}>
-       
-    <p class="text-sm">
-      {{item.id}} -  {{item.description}}
-
-    </p>
+class="p-2 w-10 h-2 text-sm opacity-80 border-1 border-round border-200 shadow-3 hover:shadow-8 	">       
+{{item.description}}
     
-</p-card>
+</div>
 
 }
 </div>

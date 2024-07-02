@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuBarComponent } from './components/menu-bar/menu-bar.component'; 
 import { Divider, DividerModule } from 'primeng/divider';
-
 import { ToDoCardComponent } from './components/to-do-card/to-do-card.component';
 
 
@@ -15,7 +14,7 @@ import { Item } from './interfaces/item';
   standalone: true,
   imports: [DividerModule, RouterOutlet, MenuBarComponent, ToDoCardComponent, ImplementingCardComponent, DoneCardComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css', '../assets/css/_primetheme.scss']
 })
 export class AppComponent {
   droppedItemFromTodoToInProgress: Item | undefined | null;
