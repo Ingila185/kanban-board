@@ -1,4 +1,4 @@
-import { Component, Input, output, signal } from '@angular/core';
+import { Component, effect, inject, Input, OnChanges, output, signal, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { IN_PROGRESS_ITEMS } from '../../data/inProgressItems';
@@ -7,18 +7,41 @@ import { Item } from '../../interfaces/item';
 import { NgFor, NgForOf } from '@angular/common';
 
 import { DragDropModule } from 'primeng/dragdrop';
+import { AllItemStore } from '../../SignalStore/all-items.store';
+import { TaskStates } from '../../enums/TaskStates';
+import { getState } from '@ngrx/signals';
 
 @Component({
   selector: 'app-implementing-card',
   standalone: true,
   imports: [CardModule, ButtonModule, NgFor, NgForOf, DragDropModule],
   templateUrl: './implementing-card.component.html',
-  styleUrl: './implementing-card.component.scss'
+  styleUrl: './implementing-card.component.scss',
+  providers: [AllItemStore]
 })
-export class ImplementingCardComponent {
+export class ImplementingCardComponent implements OnChanges{
+
+  
+  constructor()
+  {
+      
+    effect(() => {
+      // 👇 The effect will be re-executed whenever the state changes.
+      const state = getState(this.store);
+      console.log('Items state changed', state.items);
+    });
+  }
+
+
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("changed implementing", this.store.getAllItems())
+  }
   @Input() droppedItem: Item  | undefined | null;
   @Input() droppedItemFromDone: Item  | undefined | null;
   onDragInProgressStart = output<Item | undefined | null>();
+
+  readonly store = inject(AllItemStore);
 
 
   IN_PROGRESS_ITEMS : Item[] = IN_PROGRESS_ITEMS;
@@ -28,11 +51,22 @@ export class ImplementingCardComponent {
   inProgressItems = signal<Item[] | undefined | null>(IN_PROGRESS_ITEMS);
 
 
-  drop() {
-    console.log("Dropped item in Implementing", this.droppedItem , this.droppedItemFromDone)
+  drop($event:DragEvent) {
+
+    console.log("Dropped item in Implementing", this.store.items(),
+     this.droppedItem , this.droppedItemFromDone)
     let dataToAdd : Item | undefined | null;
     dataToAdd = (this.droppedItem) ? this.droppedItem : this.droppedItemFromDone;
     this.addToInProgressItems(dataToAdd);
+
+    this.store.updateItemStatus(dataToAdd?.id! , TaskStates.InProgress)
+
+    
+
+    console.log(this.store.items());
+
+
+
   }
 
   addToInProgressItems(item : Item | undefined | null)
@@ -40,7 +74,7 @@ export class ImplementingCardComponent {
     let remainingInProgressItems : Item[] | undefined | null = this.inProgressItems();
     remainingInProgressItems?.push(item!);
     this.inProgressItems.set(remainingInProgressItems);
-
+  
   }
 
   dragStart(item: Item)

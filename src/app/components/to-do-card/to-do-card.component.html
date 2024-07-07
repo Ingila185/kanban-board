@@ -7,10 +7,15 @@
     (onDragEnd)="dragEnd()"
     
     class=" p-2 w-10 h-2 text-sm opacity-80 border-1 border-round border-200 shadow-3 hover:shadow-8  ">       
-    {{item.description}}
+    
+    <h5>{{item.id}} - {{item.name}}</h5>
+    
+    <p>{{item.status}} - {{item.description}}</p>
         
     </div>
 
     }
 
     </div>
+
+    <app-new-item (onItemAdded)="displayNewItems($event)"></app-new-item>

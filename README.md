@@ -16,6 +16,9 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - PrimeNG
 - PrimeFlex
 - Scss
+- Reactive Forms
+- NgRx Signals and NgRx Signals Store
+
 
 
 ## Build on Localhost

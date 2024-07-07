@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 
-import { Component, Signal, signal, output, Input } from '@angular/core';
+import { Component, signal, output, Input, effect, inject, OnChanges, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { NgFor, NgForOf } from '@angular/common';
@@ -8,9 +8,11 @@ import { TO_DO_ITEMS } from '../../data/todoItems';
 import { Item } from '../../interfaces/item';
 import { NewItemComponent } from '../new-item/new-item.component';
 import { DragDropModule } from 'primeng/dragdrop';
-import {ConfirmationService} from 'primeng/api';
-import {Message} from 'primeng/api';
-import { PrimeNGConfig } from 'primeng/api';
+import { AllItemStore } from '../../SignalStore/all-items.store';
+import { getState } from '@ngrx/signals';
+import { Signal } from '@ngrx/signals/src/deep-signal';
+import { stat } from 'fs';
+import { TaskStates } from '../../enums/TaskStates';
 
 @Component({
   selector: 'app-to-do-card',
@@ -18,9 +20,26 @@ import { PrimeNGConfig } from 'primeng/api';
   imports: [CommonModule, CardModule, ButtonModule, NgFor, NgForOf, DragDropModule, NewItemComponent],
   templateUrl: './to-do-card.component.html',
   styleUrl: './to-do-card.component.scss',
-  providers: [ConfirmationService]
+  providers:[AllItemStore]
 })
-export class ToDoCardComponent {
+export class ToDoCardComponent implements OnChanges{
+  readonly store = inject(AllItemStore);
+
+
+  constructor()
+  {
+      
+    effect(() => {
+      // 👇 The effect will be re-executed whenever the state changes.
+      const state = getState(this.store);
+      console.log('Items state changed in todo', state.items);
+    });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+
+   // console.log(this.store.items())
+    
+  }
 
   @Input() droppedItemFromInProgress: Item | undefined | null;
 
@@ -28,11 +47,14 @@ export class ToDoCardComponent {
   onDragStart = output<Item | undefined | null>();
 
   selectedItem = signal<Item | undefined | null>(null);
-  allItems = signal<Item[] | undefined | null>(TO_DO_ITEMS);
+  //allItems = signal<Item[] | undefined | null>(TO_DO_ITEMS);
+
+  allItems =  signal<Item[]>(this.store.items());
 
   isDragging: boolean = false;
 
   dragStart(item: Item) {
+
     this.isDragging = true;
 
     this.selectedItem.set(item);
@@ -42,7 +64,7 @@ export class ToDoCardComponent {
   }
 
    dragEnd() {
-    this.isDragging = false;
+   /* this.isDragging = false;
 
       console.log("Drag End in to-do" , this.selectedItem()?.id)
     let currentLeftOverItems: Item[] | undefined | null = this.allItems()?.filter((item: Item) => {
@@ -54,12 +76,17 @@ export class ToDoCardComponent {
 
     this.allItems.set(currentLeftOverItems);
     this.selectedItem.set(null);
+*/
+
+
+console.log(this.store.getAllItems());
+this.store.updateItemStatus(this.selectedItem()?.id!, TaskStates.InProgress );
 
 
   }
 
   drop() {
-    console.log("Dropped Item in To-Do", this.droppedItemFromInProgress )
+   /* console.log("Dropped Item in To-Do", this.droppedItemFromInProgress )
 
     
     if(this.droppedItemFromInProgress != null || this.droppedItemFromInProgress != undefined)
@@ -68,10 +95,17 @@ export class ToDoCardComponent {
     remainingInProgressItems?.push(this.droppedItemFromInProgress!);
     this.allItems.set(remainingInProgressItems);
    // console.log("Updated All Items", this.allItems())
-  }
+  }*/
   }
 
-  
+  displayNewItems($event : Item[])
+  {
+    this.allItems.set($event);  
+
+    console.log(this.store.getAllItems());
+    
+
+  }
 
 
 }
