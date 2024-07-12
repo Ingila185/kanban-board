@@ -8,8 +8,10 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 
 ## State Management
-- The states are managed through [signals()](https://angular.dev/guide/signals) API.
-- Component communication is managed with @Input decorator and output function.
+- The reactivity is added through [signals()](https://angular.dev/guide/signals) API.
+- Component states are managed by [NgRx Store](https://ngrx.io/).
+
+
 
 
 ## UI/UX Frameworks
@@ -17,7 +19,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - PrimeFlex
 - Scss
 - Reactive Forms
-- NgRx Signals and NgRx Signals Store
+- NgRx Store
 
 
 
