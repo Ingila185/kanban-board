@@ -7,14 +7,14 @@
                 <span>Add new item</span>
             </ng-template>
             <ng-template pTemplate="content">
-                <form [formGroup]="newItemForm">
+                <form [formGroup]="newItemForm" (submit) = "addNewItemFromStore()">
 
                     <div class="flex flex-column gap-2 p-2 w-full h-5 block">
                         <input type="text" value="" placeholder="Name" pInputText formControlName="name" />
-                        <input type="text" value="" placeholder="Description (Optional)" pInputText formControlName="description" />
+                        <input type="text" value="" placeholder="Description" pInputText formControlName="description" />
 
                         <!--<p-button (click)="addNewItem()" label="Add" [disabled] = "!newItemForm.valid"/>-->
-                        <p-button (click)="addNewItemFromStore()" label="Add" [disabled] = "!newItemForm.valid"/>
+                        <p-button type = "submit" label="Add" [disabled] = "!newItemForm.valid"/>
 
                     </div>
                 </form>

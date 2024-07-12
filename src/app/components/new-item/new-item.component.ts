@@ -35,7 +35,7 @@ constructor(private formBuilder: FormBuilder, private allTodoStore : Store<{item
 {
   this.newItemForm = this.formBuilder.group({
     name: new FormControl<string>('', Validators.required),
-    description: new FormControl<string | null | undefined>('')
+    description: new FormControl<string>('', Validators.required)
   });
 
 }
