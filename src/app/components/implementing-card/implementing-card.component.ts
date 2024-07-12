@@ -26,6 +26,10 @@ import { MenuModule } from 'primeng/menu';
   providers: [AllItemStore]
 })
 export class ImplementingCardComponent implements OnChanges, OnInit{
+  @Input() droppedItem: Item  | undefined | null;
+  @Input() droppedItemFromDone: Item  | undefined | null;
+  onDragInProgressStart = output<Item | undefined | null>();
+
 
   readonly store = inject(AllItemStore);
   items: MenuItem[] | undefined;
@@ -33,12 +37,7 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
   constructor(private allTodoStore : Store<{item: ItemModel[]}>)
   {
       
-    effect(() => {
-      // 👇 The effect will be re-executed whenever the state changes.
-      const state = getState(this.store);
-   //   console.log('Items state changed', state);
-   //  console.log("All items in store from todo to implementing",this.store.getAllItems());
-    });
+  
   }
   ngOnInit(): void {
     this.items = [
@@ -65,7 +64,6 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
 
   
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("changed implementing")
     this.allTodoStore.select(getAllTodoItems).subscribe(res=>
       {
         this.inProgressItems.set(res.filter(item=> item.status == TaskStates.InProgress))
@@ -73,11 +71,7 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
 
 
   }
-  @Input() droppedItem: Item  | undefined | null;
-  @Input() droppedItemFromDone: Item  | undefined | null;
-  onDragInProgressStart = output<Item | undefined | null>();
-
-
+  
   IN_PROGRESS_ITEMS : Item[] = IN_PROGRESS_ITEMS;
   TO_DO_ITEMS : Item[] = TO_DO_ITEMS;
 
@@ -88,20 +82,7 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
   drop($event:DragEvent) {
   let dataToAdd : Item | undefined | null;
   dataToAdd = (this.droppedItem) ? this.droppedItem : this.droppedItemFromDone;
-
-  
-    /*this.store.getAllItems();
-
-    this.addToInProgressItems(dataToAdd);
-
-    this.store.updateItemStatus(dataToAdd?.id! , TaskStates.InProgress)
-
-    
-
-//    console.log(this.store.items());
-*/
-
-    this.allTodoStore.dispatch(updateItem({id: dataToAdd?.id! , status: TaskStates.InProgress}))
+  this.allTodoStore.dispatch(updateItem({id: dataToAdd?.id! , status: TaskStates.InProgress}))
 
 
   }
@@ -123,19 +104,10 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
   }
 
   dragEnd() {
- //   console.log("Drag End from in-progress" , this.selectedItem())
     let currentLeftOverItems: Item[] | undefined | null = this.inProgressItems()?.filter((item: Item)=>
       { 
-       // console.log(item.id)
-       // console.log(this.selectedItem()?.id)
-       // console.log(item.id != this.selectedItem()?.id)
-        
         return item.id != this.selectedItem()?.id
-      
-      });
-  
-   // console.log(currentLeftOverItems)
-  
+      });  
     this.inProgressItems.set(currentLeftOverItems);
     this.selectedItem.set(null);
   

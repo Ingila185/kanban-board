@@ -1,10 +1,15 @@
-import { Component, Input, output, signal } from '@angular/core';
+import { Component, Input, OnChanges, output, signal, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { Item } from '../../interfaces/item';
 import { DONE_ITEMS } from '../../data/doneItems';
 import { NgFor, NgForOf } from '@angular/common';
 import { DragDropModule } from 'primeng/dragdrop';
+import { updateItem } from '../../Item/item.actions';
+import { TaskStates } from '../../enums/TaskStates';
+import { Store } from '@ngrx/store';
+import { ItemModel } from '../../Item/item.model';
+import { getAllTodoItems } from '../../Item/item.selectors';
 
 
 @Component({
@@ -14,12 +19,22 @@ import { DragDropModule } from 'primeng/dragdrop';
   templateUrl: './done-card.component.html',
   styleUrl: './done-card.component.scss'
 })
-export class DoneCardComponent {
+export class DoneCardComponent implements OnChanges {
+  constructor(private allTodoStore : Store<{item: ItemModel[]}>){}
+ 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.allTodoStore.select(getAllTodoItems).subscribe(res=>
+      {
+        this.allDoneItems.set(res.filter(item=> item.status == TaskStates.Done))
+      })
+  }
+
+
 @Input() droppedItemFromInProgress :  Item | undefined | null;
 
 
-  DONE_ITEMS: Item[] = DONE_ITEMS;
-  allDoneItems = signal<Item[] | undefined | null>(DONE_ITEMS);
+//  DONE_ITEMS: Item[] = DONE_ITEMS;
+  allDoneItems = signal<Item[] | undefined | null>(null);
   selectedItem = signal<Item | undefined | null>(null);
 
   onDragStart = output<Item | undefined | null>();
@@ -43,21 +58,13 @@ export class DoneCardComponent {
   }
 
   drop() {
-    console.log("Dropped", this.droppedItemFromInProgress )
-    let dataToAdd : Item | undefined | null;
+    let dataToAdd : ItemModel | undefined | null;
     dataToAdd =  this.droppedItemFromInProgress;
-    this.addToDoneItems(dataToAdd);
+   this.allTodoStore.dispatch(updateItem({id: dataToAdd?.id! , status: TaskStates.Done}))
 
   }
 
-  
-  addToDoneItems(item : Item | undefined | null)
-  {
-    let remainingInProgressItems : Item[] | undefined | null = this.allDoneItems();
-    remainingInProgressItems?.push(item!);
-    this.allDoneItems.set(remainingInProgressItems);
-
-  }
+ 
 
 
 

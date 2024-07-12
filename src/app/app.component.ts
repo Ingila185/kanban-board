@@ -3,9 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { MenuBarComponent } from './components/menu-bar/menu-bar.component'; 
 import { Divider, DividerModule } from 'primeng/divider';
 import { ToDoCardComponent } from './components/to-do-card/to-do-card.component';
-
-
-
 import { ImplementingCardComponent } from './components/implementing-card/implementing-card.component'; 
 import { DoneCardComponent } from './components/done-card/done-card.component';
 import { Item } from './interfaces/item';
