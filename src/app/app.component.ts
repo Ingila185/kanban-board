@@ -5,7 +5,8 @@ import { Divider, DividerModule } from 'primeng/divider';
 import { ToDoCardComponent } from './components/to-do-card/to-do-card.component';
 import { ImplementingCardComponent } from './components/implementing-card/implementing-card.component'; 
 import { DoneCardComponent } from './components/done-card/done-card.component';
-import { Item } from './interfaces/item';
+import { ItemModel } from './Item/item.model';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,14 +15,14 @@ import { Item } from './interfaces/item';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  droppedItemFromTodoToInProgress: Item | undefined | null;
-  droppedItemFromInProgressToToDo: Item | undefined | null;
-  droppedItemFromDone: Item | undefined | null;
+  droppedItemFromTodoToInProgress: ItemModel | undefined | null;
+  droppedItemFromInProgressToToDo: ItemModel | undefined | null;
+  droppedItemFromDone: ItemModel | undefined | null;
 
 
   constructor(){}
   title = 'kanban-board';
-  showData(event : Item | undefined | null)
+  showData(event : ItemModel | undefined | null)
   {
     console.log("data from todo" , event);
 
@@ -29,7 +30,7 @@ export class AppComponent {
     
   }
 
-  sendDataToToDoList(event: Item | undefined | null)
+  sendDataToToDoList(event: ItemModel | undefined | null)
   {
     console.log('data from Implementing' , event)
     this.droppedItemFromInProgressToToDo = event;
@@ -39,7 +40,7 @@ export class AppComponent {
 
   }
 
-  sendDataBack(event: Item | undefined | null)
+  sendDataBack(event: ItemModel | undefined | null)
   {
     console.log("data from done" , event);
 

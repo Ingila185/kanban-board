@@ -1,15 +1,9 @@
 import { Component, effect, inject, Input, OnChanges, OnInit, output, signal, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { IN_PROGRESS_ITEMS } from '../../data/inProgressItems';
-import { TO_DO_ITEMS } from '../../data/todoItems';
-import { Item } from '../../interfaces/item';
 import { NgFor, NgForOf } from '@angular/common';
-
 import { DragDropModule } from 'primeng/dragdrop';
-import { AllItemStore } from '../../SignalStore/all-items.store';
 import { TaskStates } from '../../enums/TaskStates';
-import { getState } from '@ngrx/signals';
 import { Store } from '@ngrx/store';
 import { ItemModel } from '../../Item/item.model';
 import { updateItem } from '../../Item/item.actions';
@@ -23,16 +17,17 @@ import { MenuModule } from 'primeng/menu';
   imports: [CardModule, ButtonModule, NgFor, NgForOf, DragDropModule, MenuModule],
   templateUrl: './implementing-card.component.html',
   styleUrl: './implementing-card.component.scss',
-  providers: [AllItemStore]
 })
 export class ImplementingCardComponent implements OnChanges, OnInit{
-  @Input() droppedItem: Item  | undefined | null;
-  @Input() droppedItemFromDone: Item  | undefined | null;
-  onDragInProgressStart = output<Item | undefined | null>();
+  @Input() droppedItem: ItemModel  | undefined | null;
+  @Input() droppedItemFromDone: ItemModel  | undefined | null;
+  onDragInProgressStart = output<ItemModel | undefined | null>();
 
 
-  readonly store = inject(AllItemStore);
   items: MenuItem[] | undefined;
+  edit: boolean = false;
+  delete: boolean = false;
+
 
   constructor(private allTodoStore : Store<{item: ItemModel[]}>)
   {
@@ -47,12 +42,12 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
               {
                   label: 'Edit',
                   icon: 'pi pi-pencil',
-                  command: ()=>{this.editItem("123", {id: '0', name: "", description: "", status:TaskStates.Done})}
+                  command: ()=>{this.edit = true}
               },
               {
                   label: 'Delete',
                   icon: 'pi pi-trash',
-                  command: ()=>{this.deleteItem("123")}
+                  command: ()=>{this.delete = true}
 
               }
           ]
@@ -72,30 +67,27 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
 
   }
   
-  IN_PROGRESS_ITEMS : Item[] = IN_PROGRESS_ITEMS;
-  TO_DO_ITEMS : Item[] = TO_DO_ITEMS;
-
-  selectedItem = signal<Item | undefined | null>(null);
-  inProgressItems = signal<Item[] | undefined | null>(IN_PROGRESS_ITEMS);
+  selectedItem = signal<ItemModel | undefined | null>(null);
+  inProgressItems = signal<ItemModel[] | undefined | null>([]);
 
 
   drop($event:DragEvent) {
-  let dataToAdd : Item | undefined | null;
+  let dataToAdd : ItemModel | undefined | null;
   dataToAdd = (this.droppedItem) ? this.droppedItem : this.droppedItemFromDone;
   this.allTodoStore.dispatch(updateItem({id: dataToAdd?.id! , status: TaskStates.InProgress}))
 
 
   }
 
-  addToInProgressItems(item : Item | undefined | null)
+  addToInProgressItems(item : ItemModel | undefined | null)
   {
-    let remainingInProgressItems : Item[] | undefined | null = this.inProgressItems();
+    let remainingInProgressItems : ItemModel[] | undefined | null = this.inProgressItems();
     remainingInProgressItems?.push(item!);
     this.inProgressItems.set(remainingInProgressItems);
   
   }
 
-  dragStart(item: Item)
+  dragStart(item: ItemModel)
   {
     this.selectedItem.set(item);
     this.onDragInProgressStart.emit(this.selectedItem());
@@ -104,7 +96,7 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
   }
 
   dragEnd() {
-    let currentLeftOverItems: Item[] | undefined | null = this.inProgressItems()?.filter((item: Item)=>
+    let currentLeftOverItems: ItemModel[] | undefined | null = this.inProgressItems()?.filter((item: ItemModel)=>
       { 
         return item.id != this.selectedItem()?.id
       });  
@@ -114,13 +106,6 @@ export class ImplementingCardComponent implements OnChanges, OnInit{
   
   }
   
-  editItem(id: string, item: ItemModel )
-  {
-    console.log("working")
-  }
-  deleteItem(id: string)
-  {
-    console.log("Delete")
-  }
+
   
 }

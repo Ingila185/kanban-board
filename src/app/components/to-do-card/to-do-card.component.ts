@@ -4,50 +4,35 @@ import { Component, signal, output, Input, effect, inject, OnChanges, SimpleChan
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { NgFor, NgForOf } from '@angular/common';
-import { TO_DO_ITEMS } from '../../data/todoItems';
-import { Item } from '../../interfaces/item';
-import { MenuModule } from 'primeng/menu';
-
+import {  MenuModule } from 'primeng/menu';
+import { EditItemComponent } from '../../edit-item/edit-item.component';
 import { NewItemComponent } from '../new-item/new-item.component';
 import { DragDropModule } from 'primeng/dragdrop';
-import { AllItemStore } from '../../SignalStore/all-items.store';
-import { getState } from '@ngrx/signals';
-import { Signal } from '@ngrx/signals/src/deep-signal';
-import { stat } from 'fs';
 import { TaskStates } from '../../enums/TaskStates';
 import { Store } from '@ngrx/store';
 import { ItemModel } from '../../Item/item.model';
 import { getAllTodoItems } from '../../Item/item.selectors';
-import { loadAllTodos } from '../../Item/item.actions';
 import { MenuItem } from 'primeng/api';
+import { DeleteItemComponent } from '../../delete-item/delete-item.component';
+
 
 @Component({
   selector: 'app-to-do-card',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, NgFor, NgForOf, DragDropModule, NewItemComponent, MenuModule, ButtonModule],
+  imports: [CommonModule, CardModule, ButtonModule, EditItemComponent, NgFor, NgForOf, DragDropModule, NewItemComponent,DeleteItemComponent , MenuModule, ButtonModule],
   templateUrl: './to-do-card.component.html',
   styleUrl: './to-do-card.component.scss',
-  providers:[AllItemStore]
 })
 export class ToDoCardComponent implements OnChanges, OnInit{
-  readonly store = inject(AllItemStore);
   items: MenuItem[] | undefined;
+  @Input() droppedItemFromInProgress: ItemModel | undefined | null;
 
 
   constructor(private allTodoStore : Store<{item: ItemModel[]}>)
-  {
-      
-    effect(() => {
-      // 👇 The effect will be re-executed whenever the state changes.
-      const state = getState(this.store);
-  //    console.log('Items state changed in todo', state.items);
-    
-    
-    
-    });
+  {}
+  edit: boolean = false;
+  delete: boolean = false;
 
-    
-  }
   ngOnInit(): void {
 
     this.items = [
@@ -57,12 +42,15 @@ export class ToDoCardComponent implements OnChanges, OnInit{
               {
                   label: 'Edit',
                   icon: 'pi pi-pencil',
-                  command: ()=>{this.editItem("123", {id: '0', name: "", description: "", status:TaskStates.Done})}
+                  command: ()=>{this.edit = true;}
+
+                
               },
               {
                   label: 'Delete',
                   icon: 'pi pi-trash',
-                  command: ()=>{this.deleteItem("123")}
+                  command: ()=>{ this.delete = true}
+                  
 
               }
           ]
@@ -75,43 +63,27 @@ export class ToDoCardComponent implements OnChanges, OnInit{
 
   }
 
-editItem(id: string, item: ItemModel )
-{
-  console.log("working")
-}
-deleteItem(id: string)
-{
-  console.log("Delete")
-}
 
  ngOnChanges(changes: SimpleChanges): void {
-
-   // console.log(this.store.items())
    this.allTodoStore.select(getAllTodoItems).subscribe((res)=>
     {
-      console.log(res)
+      this.allItems.set(res.filter((item)=>item.status== TaskStates.ToDo && item.isActive))
     })
     
   }
-
-  @Input() droppedItemFromInProgress: Item | undefined | null;
-
-  TO_DO_ITEMS: Item[] = TO_DO_ITEMS;
-  onDragStart = output<Item | undefined | null>();
-
-  selectedItem = signal<Item | undefined | null>(null);
+  
+  selectedItem = signal<ItemModel | undefined | null>(null);
   //allItems = signal<Item[] | undefined | null>(TO_DO_ITEMS);
 
-  allItems =  signal<ItemModel[]>(this.store.items());
+  allItems =  signal<ItemModel[]>([]);
 
   isDragging: boolean = false;
 
-  dragStart(item: Item) {
+  dragStart(item: ItemModel) {
 
     this.isDragging = true;
 
     this.selectedItem.set(item);
-    this.onDragStart.emit(this.selectedItem());
     //console.log("dragging start", this.selectedItem())  
 
   }
@@ -133,7 +105,6 @@ deleteItem(id: string)
 
 
 //console.log(this.store.getAllItems());
-this.store.updateItemStatus(this.selectedItem()?.id!, TaskStates.InProgress );
 
 
   }
@@ -151,17 +122,12 @@ this.store.updateItemStatus(this.selectedItem()?.id!, TaskStates.InProgress );
   }*/
   }
 
-  displayNewItems($event : Item[])
-  {
-  //  this.allItems.set($event);  
-
-  //  console.log($event);
-    
-  
+  displayNewItems($event : ItemModel[])
+  {  
   if($event){
 
     this.allTodoStore.select(getAllTodoItems).subscribe(res =>{
-      this.allItems.set(res.filter((item)=>item.status== TaskStates.ToDo))
+    this.allItems.set(res.filter((item)=>item.status== TaskStates.ToDo && item.isActive))
       
     })
 

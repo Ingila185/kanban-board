@@ -1,8 +1,5 @@
 import { Component, OnInit, effect, inject, output } from '@angular/core';
 import {CommonModule} from '@angular/common';
-import { AllItemsState, AllItemStore } from '../../SignalStore/all-items.store';
-
-
 
 import {  FormBuilder,
   FormGroup,
@@ -13,14 +10,10 @@ import {  FormBuilder,
 
 import { InplaceModule } from 'primeng/inplace';
 import { InputTextModule } from 'primeng/inputtext';
-import { Item } from '../../interfaces/item';
 import { TaskStates } from '../../enums/TaskStates';
-import { getState, patchState } from '@ngrx/signals';
-import { STATE_SIGNAL } from '@ngrx/signals/src/state-signal';
 import { Store } from '@ngrx/store';
 import { ItemModel } from '../../Item/item.model';
-import { addToDo, loadAllTodos } from '../../Item/item.actions';
-import { getAllTodoItems } from '../../Item/item.selectors';
+import { addToDo } from '../../Item/item.actions';
 
 @Component({
   selector: 'app-new-item',
@@ -28,13 +21,11 @@ import { getAllTodoItems } from '../../Item/item.selectors';
   imports: [CommonModule, InplaceModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './new-item.component.html',
   styleUrl: './new-item.component.scss',
-  providers: [AllItemStore]
 
 
 })
-export class NewItemComponent implements OnInit{
+export class NewItemComponent{
   newItemForm!: FormGroup;
-  readonly store = inject(AllItemStore);
   visible: boolean = false;
   newItem: string = "";
 
@@ -47,52 +38,7 @@ constructor(private formBuilder: FormBuilder, private allTodoStore : Store<{item
     description: new FormControl<string | null | undefined>('')
   });
 
-
-  
-    effect(() => {
-      // 👇 The effect will be re-executed whenever the state changes.
-      const state = getState(this.store);
-      //console.log('Items state changed in New Items', state);
-     // this.store.getAllItems();
-
-    });
-
 }
- 
-
-
-ngOnInit(): void {    
-
-this.store.getAllItems();
-
-
-}
-
-  
-  addNewItem()
-  {
-   let newItemDescription = this.newItemForm.controls['description'].value;
-   let newItemName = this.newItemForm.controls['name'].value;
-
-   let newItem : Item = 
-   {
-    id: (Math.floor(Math.random() * 10000)).toString(), //Random ID Assigned to each Item
-    name: newItemName, 
-    description: newItemDescription,
-    status: TaskStates.ToDo
-   }
-
-
-   
-this.store.addItem(newItem);
-//console.log("After Adding item",this.store.items());
-this.newItemForm.reset();
-this.onItemAdded.emit(this.store.items())
-
-  }
-
-
-
 
   addNewItemFromStore()
   {
@@ -104,7 +50,8 @@ this.onItemAdded.emit(this.store.items())
      id: (Math.floor(Math.random() * 10000)).toString(), //Random ID Assigned to each Item
      name: newItemName, 
      description: newItemDescription,
-     status: TaskStates.ToDo
+     status: TaskStates.ToDo,
+     isActive: true
     }
     this.allTodoStore.dispatch(addToDo({todoItem : newItem}));
 

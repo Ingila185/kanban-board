@@ -1,8 +1,6 @@
 import { Component, Input, OnChanges, output, signal, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { Item } from '../../interfaces/item';
-import { DONE_ITEMS } from '../../data/doneItems';
 import { NgFor, NgForOf } from '@angular/common';
 import { DragDropModule } from 'primeng/dragdrop';
 import { updateItem } from '../../Item/item.actions';
@@ -25,36 +23,35 @@ export class DoneCardComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.allTodoStore.select(getAllTodoItems).subscribe(res=>
       {
-        this.allDoneItems.set(res.filter(item=> item.status == TaskStates.Done))
+        this.allDoneItems.set(res.filter(item=> item.status == TaskStates.Done && item.isActive))
       })
   }
 
 
-@Input() droppedItemFromInProgress :  Item | undefined | null;
+@Input() droppedItemFromInProgress :  ItemModel | undefined | null;
 
 
 //  DONE_ITEMS: Item[] = DONE_ITEMS;
-  allDoneItems = signal<Item[] | undefined | null>(null);
-  selectedItem = signal<Item | undefined | null>(null);
+  allDoneItems = signal<ItemModel[] | undefined | null>(null);
+  selectedItem = signal<ItemModel | undefined | null>(null);
 
-  onDragStart = output<Item | undefined | null>();
+  onDragStart = output<ItemModel | undefined | null>();
 
-  dragStart(product: Item) {
+  dragStart(product: ItemModel) {
     this.selectedItem.set(product);
     this.onDragStart.emit(this.selectedItem());
-    console.log("dragging start", product)
 
   }
 
   dragEnd() {
   //  console.log("Drag End" )
-    let currentLeftOverItems: Item[] | undefined | null = this.allDoneItems()?.filter((item: Item) => {
+  /*  let currentLeftOverItems: Item[] | undefined | null = this.allDoneItems()?.filter((item: Item) => {
       return item.id != this.selectedItem()?.id
     });
 
    // console.log(currentLeftOverItems)
     this.allDoneItems.set(currentLeftOverItems);
-    this.selectedItem.set(null);
+    this.selectedItem.set(null);*/
   }
 
   drop() {

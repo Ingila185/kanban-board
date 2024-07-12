@@ -5,6 +5,7 @@ export interface ItemModel
     name: string;
     description: string;
     status: TaskStates;
+    isActive: boolean
 
 }
 
