@@ -1,7 +1,7 @@
 <div class=" p-2 w-full h-2 text-sm opacity-80 border-1 border-round border-200  hover:shadow-3  ">
 
     <div class="card flex justify-content-left gap-2">
-        <p-inplace closable="closable">
+        <p-inplace  [style]="{width: '500px'}" closable="closable">
 
             <ng-template pTemplate="display">
                 <span>Add new item</span>
@@ -9,11 +9,13 @@
             <ng-template pTemplate="content">
                 <form [formGroup]="newItemForm">
 
-                    <div class="flex flex-column gap-2 p-2 w-15 h-5 block">
+                    <div class="flex flex-column gap-2 p-2 w-full h-5 block">
                         <input type="text" value="" placeholder="Name" pInputText formControlName="name" />
                         <input type="text" value="" placeholder="Description (Optional)" pInputText formControlName="description" />
 
-                        <p-button (click)="addNewItem()" label="Add" [disabled] = "!newItemForm.valid"/>
+                        <!--<p-button (click)="addNewItem()" label="Add" [disabled] = "!newItemForm.valid"/>-->
+                        <p-button (click)="addNewItemFromStore()" label="Add" [disabled] = "!newItemForm.valid"/>
+
                     </div>
                 </form>
             </ng-template>

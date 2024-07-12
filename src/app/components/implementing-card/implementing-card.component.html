@@ -6,8 +6,30 @@
 (onDragStart)="dragStart(item)" 
 (onDragEnd)="dragEnd()"
 
-class="p-2 w-10 h-2 text-sm opacity-80 border-1 border-round border-200 shadow-3 hover:shadow-8 	">       
-{{item.description}}
+>
+<p-card  >
+
+    <ng-template pTemplate="header">
+        <div class="flex p-1 bg-primary">
+            <div class="flex-grow-1"><h5>{{item.status}} - {{item.id}} </h5></div>
+            <p-button (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
+            <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" />
+
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+        <p> {{item.name}}  - {{item.description}}</p>
+
+</ng-template>
+
+</p-card>
+
+
+
+
+    
+    
     
 </div>
 

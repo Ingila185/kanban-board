@@ -10,11 +10,18 @@ export const ItemState = {
 
 
   type AllToDoItemType = { todoItem: Item[];};
+  type currentItemDrag = {currentItem : Item};
 
 
   export const allToDoItemState = signalState<AllToDoItemType>
   (
     {
       todoItem: [] as Item[]
+    }
+  )
+
+  export const currentItemDrag = signalState<currentItemDrag>(
+    {
+      currentItem: {} as Item
     }
   )

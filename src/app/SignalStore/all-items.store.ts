@@ -1,9 +1,10 @@
-import { signalStore, withState, withMethods, patchState, signalState  } from '@ngrx/signals';
-import { allToDoItemState, ItemState } from './States/initialState';
+import { signalStore, withState, withMethods, patchState, signalState , withComputed } from '@ngrx/signals';
+import { allToDoItemState, currentItemDrag, ItemState } from './States/initialState';
 import { Item } from '../interfaces/item';
 import { Signal } from '@ngrx/signals/src/deep-signal';
 import { TaskStates } from '../enums/TaskStates';
 import { computed, effect } from '@angular/core';
+import { createReducer } from '@ngrx/store';
 
 export type AllItemsState = Item[] | null;  // Union type for initial state
 
@@ -17,6 +18,14 @@ interface AddNewItem
 
 
 
+const myReducer = createReducer(
+  ItemState,
+  // ... other actions and reducers
+);
+
+export const reducers = {
+  myFeature: myReducer,
+};
 
 export const AllItemStore = signalStore
 (
@@ -24,26 +33,37 @@ export const AllItemStore = signalStore
   
   withState(ItemState),
   withState(allToDoItemState),
-
+  withState(currentItemDrag),
+  
+  
+  
+  
+  
   withMethods((store)=>
     ({
         addItem(newItem : Item): void
         {
-
-            patchState(store, {items: [...store.items() , newItem]} )
-            patchState(store, {todoItem : [...store.items() , newItem]})
-            console.log(store.items() , store.todoItem())
+           patchState(store, {items: [...store.items() , newItem]} ) //Works
+           // patchState(store, {todoItem : [...store.items() , newItem]})
+           // console.log(store.items() , store.todoItem())
         },
+
+
+
+
+
+
+
+
+
+
+
+
         getAllItems(): Item[]
-        {
-          //return ItemState.items;
-          
-        
-          console.log(store.todoItem())
-          console.log(store.items())
+        {       
+          console.log(...[store.items()])
 
-          return store.items();
-
+         return [...(store.items())]
 
 
 
@@ -51,7 +71,8 @@ export const AllItemStore = signalStore
 
         updateItemStatus(itemId: string, status: TaskStates) : void
         {
-          console.log("id from store update()", itemId , status,  [...store.items()], ItemState.items , store.todoItem(), allToDoItemState.todoItem())
+          console.log(store)
+          console.log("id from store update()", itemId , status,  [...[store.items()]], ItemState.items , store.todoItem(), allToDoItemState.todoItem())
           patchState(store, {items: {...store.items() , }})
           console.log(store.items() , store.todoItem(), this.getAllItems())
 
@@ -70,12 +91,15 @@ export const AllItemStore = signalStore
 //patchState(store, {items: [...store.items(), ]})
         
         
-        }
+        },
+
+        
       
     } 
   ), 
   )
 );
+
 
 
 

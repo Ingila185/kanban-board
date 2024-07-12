@@ -17,13 +17,17 @@ import { Item } from '../../interfaces/item';
 import { TaskStates } from '../../enums/TaskStates';
 import { getState, patchState } from '@ngrx/signals';
 import { STATE_SIGNAL } from '@ngrx/signals/src/state-signal';
+import { Store } from '@ngrx/store';
+import { ItemModel } from '../../Item/item.model';
+import { addToDo, loadAllTodos } from '../../Item/item.actions';
+import { getAllTodoItems } from '../../Item/item.selectors';
 
 @Component({
   selector: 'app-new-item',
   standalone: true,
   imports: [CommonModule, InplaceModule, InputTextModule, ReactiveFormsModule],
   templateUrl: './new-item.component.html',
-  styleUrl: './new-item.component.css',
+  styleUrl: './new-item.component.scss',
   providers: [AllItemStore]
 
 
@@ -36,7 +40,7 @@ export class NewItemComponent implements OnInit{
 
  onItemAdded =  output<any>()
 
-constructor(private formBuilder: FormBuilder)
+constructor(private formBuilder: FormBuilder, private allTodoStore : Store<{item: ItemModel[]}>)
 {
   this.newItemForm = this.formBuilder.group({
     name: new FormControl<string>('', Validators.required),
@@ -48,7 +52,9 @@ constructor(private formBuilder: FormBuilder)
     effect(() => {
       // 👇 The effect will be re-executed whenever the state changes.
       const state = getState(this.store);
-      console.log('Items state changed in New Items', state);
+      //console.log('Items state changed in New Items', state);
+     // this.store.getAllItems();
+
     });
 
 }
@@ -56,6 +62,9 @@ constructor(private formBuilder: FormBuilder)
 
 
 ngOnInit(): void {    
+
+this.store.getAllItems();
+
 
 }
 
@@ -72,11 +81,34 @@ ngOnInit(): void {
     description: newItemDescription,
     status: TaskStates.ToDo
    }
+
+
+   
 this.store.addItem(newItem);
 //console.log("After Adding item",this.store.items());
 this.newItemForm.reset();
 this.onItemAdded.emit(this.store.items())
 
+  }
 
+
+
+
+  addNewItemFromStore()
+  {
+    let newItemDescription = this.newItemForm.controls['description'].value;
+    let newItemName = this.newItemForm.controls['name'].value;
+ 
+    let newItem : ItemModel = 
+    {
+     id: (Math.floor(Math.random() * 10000)).toString(), //Random ID Assigned to each Item
+     name: newItemName, 
+     description: newItemDescription,
+     status: TaskStates.ToDo
+    }
+    this.allTodoStore.dispatch(addToDo({todoItem : newItem}));
+
+    this.onItemAdded.emit(true);
+    this.newItemForm.reset();
   }
 }
