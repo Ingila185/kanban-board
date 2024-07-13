@@ -1,7 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { ItemState } from "./item.state";
 import { addToDo, loadAllTodos, removeItem, updateItem, updateItemFields } from "./item.actions";
-import { ItemModel } from "./item.model";
 
 const allTodosReducer = createReducer(ItemState,
     on(loadAllTodos, (state) => {

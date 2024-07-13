@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, output, signal } from '@angular/core';
+import { Component, Input, OnInit, output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -61,6 +61,8 @@ export class EditItemComponent implements OnInit{
   {
     this.isVisible = false;
     this.isClosed.emit(true)
+    this.itemId = '';
+
   }
   
 

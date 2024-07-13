@@ -60,7 +60,7 @@ export class DoneCardComponent implements OnInit, OnChanges {
     //Update status to Done 
     this.allTodoStore.dispatch(updateItem({ id: this.droppedItemToDone?.item?.id!, status: TaskStates.Done }))
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.allTodoStore.select(getAllTodoItems).subscribe(res=>
       {
         this.allDoneItems.set(res.filter(item=> item.status == TaskStates.Done && item.isActive))

@@ -37,7 +37,7 @@ export class ToDoCardComponent implements OnChanges, OnInit{
   allItems =  signal<ItemModel[]>([]);
   selectedItem : ItemModel | null = null;
   isDragging: boolean = false;
-  isEditable: string = '';
+  editId: string = '';
 
 
   ngOnInit(): void {
@@ -55,8 +55,6 @@ export class ToDoCardComponent implements OnChanges, OnInit{
                   label: 'Delete',
                   icon: 'pi pi-trash',
                   command: ()=>{ this.delete = true}
-                  
-
               }
           ]
       }
@@ -70,6 +68,8 @@ export class ToDoCardComponent implements OnChanges, OnInit{
     {
       this.allItems.set(res.filter((item)=>item.status== TaskStates.ToDo && item.isActive))
     })
+  this.editId = '';
+  
   }
 
   dragStart(item: ItemModel) {
@@ -102,6 +102,12 @@ export class ToDoCardComponent implements OnChanges, OnInit{
   {
     this.edit = !$event
     this.delete = !$event
+  }
+
+  assignEditId(item : ItemModel)
+  {
+    console.log(item)
+    this.editId = item.id
   }
 
 }

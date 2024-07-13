@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuBarComponent } from './components/menu-bar/menu-bar.component'; 
-import { Divider, DividerModule } from 'primeng/divider';
+import { DividerModule } from 'primeng/divider';
 import { ToDoCardComponent } from './components/to-do-card/to-do-card.component';
 import { ImplementingCardComponent } from './components/implementing-card/implementing-card.component'; 
 import { DoneCardComponent } from './components/done-card/done-card.component';
-import { ItemModel } from './Item/item.model';
 import { DragItem } from './Interfaces/DragItem';
 
 @Component({

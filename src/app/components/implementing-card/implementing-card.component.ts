@@ -1,4 +1,4 @@
-import { Component, effect, inject, Input, OnChanges, OnInit, output, signal, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, output, signal, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { NgFor, NgForOf } from '@angular/common';
@@ -61,7 +61,7 @@ export class ImplementingCardComponent implements OnChanges, OnInit {
 
 
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.allTodoStore.select(getAllTodoItems).subscribe(res => {
       this.inProgressItems.set(res.filter(item => item.status == TaskStates.InProgress && item.isActive))
     })
@@ -69,9 +69,7 @@ export class ImplementingCardComponent implements OnChanges, OnInit {
 
   }
 
-
-
-  handleDrop($event: any) {
+  handleDrop() {
     //console.log(this.droppedItem)
     this.allTodoStore.dispatch(updateItem({ id: this.droppedItem?.item?.id!, status: TaskStates.InProgress }))
   }
