@@ -1,12 +1,11 @@
 <main>
   <app-menu-bar></app-menu-bar>
-  
-  <div class="flex gap-5 justify-content-around  ">
+
+  <div class="flex gap-5 justify-content-around ">
     <div class="w-full min-h-screen">
       <h4>To Do Items</h4>
       <!--<app-to-do-card [droppedItemFromInProgress]="droppedItemFromInProgressToToDo"
         (onDragStart)="showData($event)"></app-to-do-card>-->
-
         
       <app-to-do-card (draggingSTartFromTodo) = "assignValueToItem($event)" 
       [droppedItemInToDo]="droppedItemInToDo"

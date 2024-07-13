@@ -3,12 +3,12 @@
     @for (item of allItems(); track item){
 
     <div pDraggable dragEffect="move" (onDragStart)="dragStart(item)" (onDragEnd)="dragEnd()">
-        <p-card>
+        <p-card subheader = "Details">
 
             <ng-template pTemplate="header">
                 <div class="flex pl-4 bg-primary">
                     <div class="flex-grow-1">
-                        <h5>{{item.status}} - {{item.id}} </h5>
+                        <h5>{{item.id}} - {{item.status}} - {{item.name}}</h5>
                     </div>
                     <p-button (onClick)="menu.toggle($event);" icon="pi pi-ellipsis-v" />
                     <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" />
@@ -16,8 +16,8 @@
             </ng-template>
 
             <ng-template pTemplate="content">
-                <div class="text-sm">
-                <p> {{item.name}} - {{item.description}}</p>
+                <div class="text-md">
+                <span>{{item.description}}</span>
             </div>
             </ng-template>
 
