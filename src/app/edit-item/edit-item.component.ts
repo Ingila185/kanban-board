@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal } from '@angular/core';
+import { Component, Input, OnInit, output, signal } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -18,7 +18,10 @@ import { ItemState } from '../Item/item.state';
 })
 export class EditItemComponent implements OnInit{
   editItemForm!: FormGroup;
-  currentItem  = signal<ItemModel | null>(null)
+  isVisible: boolean = true;
+  @Input() itemId: string = "";
+  isClosed = output<boolean>();
+  
 
   constructor(private formBuilder: FormBuilder, private allTodoStore : Store<{item: ItemModel[]}>)
   {
@@ -27,10 +30,6 @@ export class EditItemComponent implements OnInit{
       description: new FormControl<string>('', Validators.required)
     });
   }
-  @Input() itemId: string = "";
-
- // itemId: string = "";
-
 
   ngOnInit(): void {
     if(this.isValidString(this.itemId)){
@@ -40,12 +39,8 @@ export class EditItemComponent implements OnInit{
 
           let currentItem = res.filter((item)=>item.id == this.itemId && item.isActive)
           if(currentItem.length > 0){
-          this.currentItem.set(currentItem[0]);
-
           this.editItemForm.controls['name'].setValue(currentItem[0].name)
           this.editItemForm.controls['description'].setValue(currentItem[0].description)
-
-         //console.log(currentItem )
         }}
     )
   }
@@ -55,13 +50,22 @@ export class EditItemComponent implements OnInit{
 
   editItem()
   {
+    let name = this.editItemForm.controls['name'].value.toString();
+    let description = this.editItemForm.controls['description'].value.toString();
+    this.allTodoStore.dispatch(updateItemFields({id: this.itemId, name: name, description: description}))
     this.isVisible = false;
 
-    console.log(this.itemId , this.currentItem())
-    this.allTodoStore.dispatch(updateItemFields({id: this.itemId, item: this.currentItem()!}))
+    this.isClosed.emit(true);
+    
+
+  }
+
+  closeDialog()
+  {
+    this.isVisible = false;
+    this.isClosed.emit(true)
   }
   
-isVisible: boolean = true;
 
 isValidString(str: string): boolean {
   return typeof str === 'string' && str !== null && str !== undefined;

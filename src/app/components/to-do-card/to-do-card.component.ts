@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 
-import { Component, signal, output, Input, effect, inject, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, signal, Input, effect, inject, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { NgFor, NgForOf } from '@angular/common';
@@ -32,6 +32,9 @@ export class ToDoCardComponent implements OnChanges, OnInit{
   {}
   edit: boolean = false;
   delete: boolean = false;
+  allItems =  signal<ItemModel[]>([]);
+  selectedItem = signal<ItemModel | undefined | null>(null);
+  isDragging: boolean = false;
 
   ngOnInit(): void {
 
@@ -69,15 +72,7 @@ export class ToDoCardComponent implements OnChanges, OnInit{
     {
       this.allItems.set(res.filter((item)=>item.status== TaskStates.ToDo && item.isActive))
     })
-    
   }
-  
-  selectedItem = signal<ItemModel | undefined | null>(null);
-  //allItems = signal<Item[] | undefined | null>(TO_DO_ITEMS);
-
-  allItems =  signal<ItemModel[]>([]);
-
-  isDragging: boolean = false;
 
   dragStart(item: ItemModel) {
 
@@ -133,6 +128,11 @@ export class ToDoCardComponent implements OnChanges, OnInit{
 
 }
   }
-
+  
+  handleCloseDialog($event : boolean)
+  {
+    this.edit = !$event
+    this.delete = !$event
+  }
 
 }

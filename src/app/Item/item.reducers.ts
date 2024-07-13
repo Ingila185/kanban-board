@@ -18,7 +18,10 @@ const allTodosReducer = createReducer(ItemState,
 
     on(updateItemFields , (state, action)=>({
         ...state,
-        allTodoItems: state.allTodoItems.map((existingItem)=>(existingItem.id === action.id ? action.item : existingItem))
+     //   allTodoItems: state.allTodoItems.map((existingItem)=>(existingItem.id === action.id ? action.item : existingItem))
+     allTodoItems: state.allTodoItems.map((item)=>item.id === action.id ? {...item , name: action.name , description: action.description} : item)
+
+    
     })),
 
     on(removeItem, (state, action)=>({

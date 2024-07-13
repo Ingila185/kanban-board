@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { Store } from '@ngrx/store';
@@ -14,6 +14,7 @@ import { removeItem } from '../Item/item.actions';
 })
 export class DeleteItemComponent implements OnInit {
   @Input() itemId: string = "";
+  isClosed = output<boolean>();
 
   constructor(private allTodoStore : Store<{item: ItemModel[]}>)
   {}
@@ -24,12 +25,19 @@ deleteItem()
 {
   this.isVisible = false
   this.allTodoStore.dispatch(removeItem({id: this.itemId}))
+  this.isClosed.emit(true);
 }
 
 ngOnInit(): void {
 console.log(this.itemId)
 }
 
+handleCLose()
+{
+  this.isVisible=false;
+  this.isClosed.emit(true);
+
+}
 
 
 }

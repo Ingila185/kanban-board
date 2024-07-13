@@ -27,13 +27,12 @@
     
         
     </div>
-
     @if(edit){
-   <edit-item [itemId] =item.id></edit-item>
+   <edit-item [itemId] =item.id (isClosed)="handleCloseDialog($event)"></edit-item>
 }
 
 @if(delete){
-    <delete-item [itemId] =item.id ></delete-item>
+    <delete-item [itemId] =item.id (isClosed)="handleCloseDialog($event)" ></delete-item>
  }
     }
 
