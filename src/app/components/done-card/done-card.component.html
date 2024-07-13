@@ -8,8 +8,9 @@
 
             <ng-template pTemplate="header">
                 <div class="flex p-1 bg-primary">
-                    <div class="flex-grow-1"><h5>{{item.status}} - {{item.id}} </h5></div> 
-                 
+                    <div class="flex-grow-1"><h5>{{item.status}} - {{item.id}} </h5></div>
+                    <p-button (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
+                    <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" />
         
                 </div>
             </ng-template>
@@ -22,5 +23,10 @@
         </p-card>
                    
         </div>
+
+        @if(delete){
+            <delete-item [itemId] =item.id (isClosed)="handleCloseDialog($event)" ></delete-item>
+         }
+            
             }
         </div>

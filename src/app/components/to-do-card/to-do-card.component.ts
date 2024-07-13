@@ -84,7 +84,6 @@ export class ToDoCardComponent implements OnChanges, OnInit{
 
    dragEnd() {
     this.selectedItem = null;
-    
   }
 
   drop() {   

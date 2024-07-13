@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, output, signal, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, output, signal, SimpleChanges } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { NgFor, NgForOf } from '@angular/common';
@@ -9,25 +9,47 @@ import { Store } from '@ngrx/store';
 import { ItemModel } from '../../Item/item.model';
 import { getAllTodoItems } from '../../Item/item.selectors';
 import { DragItem } from '../../Interfaces/DragItem';
+import { MenuItem } from 'primeng/api';
+import { DeleteItemComponent } from '../../delete-item/delete-item.component';
+import { MenuModule } from 'primeng/menu';
 
 
 @Component({
   selector: 'app-done-card',
   standalone: true,
-  imports: [CardModule, ButtonModule, NgFor, NgForOf, DragDropModule],
+  imports: [CardModule, ButtonModule, NgFor, NgForOf, DragDropModule, DeleteItemComponent, MenuModule],
   templateUrl: './done-card.component.html',
   styleUrl: './done-card.component.scss'
 })
-export class DoneCardComponent implements OnChanges {
+export class DoneCardComponent implements OnInit, OnChanges {
   constructor(private allTodoStore : Store<{item: ItemModel[]}>){}
+  allDoneItems = signal<ItemModel[] | undefined | null>(null);
+  items: MenuItem[] | undefined;
+
+ 
+ 
+  ngOnInit(): void {
+    this.items = [
+      {
+          label: 'Options',
+          items: [
+              {
+                  label: 'Delete',
+                  icon: 'pi pi-trash',
+                  command: ()=>{ this.delete = true}
+              }
+          ]
+      }
+  ];
+  }
   @Input() droppedItemToDone :  DragItem | undefined | null;
   selectedItem : ItemModel | null = null;
   onDragStart = output<DragItem>();
+  delete: boolean = false;
 
  
 
 //  DONE_ITEMS: Item[] = DONE_ITEMS;
-  allDoneItems = signal<ItemModel[] | undefined | null>(null);
 
 
   dragStart(item: ItemModel) {
@@ -52,6 +74,10 @@ export class DoneCardComponent implements OnChanges {
   }
  
 
+  handleCloseDialog($event : boolean)
+  {
+    this.delete = !$event
+  }
 
 
 }
