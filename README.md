@@ -18,7 +18,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 
 ## UI/UX Frameworks
-- [Angular 17](https://angular.dev/) 
+- [Angular 17 Standalone app](https://angular.dev/) 
 - [PrimeNG](https://primeng.org/)
 - [PrimeFlex](https://primeflex.org/)
 - Scss
