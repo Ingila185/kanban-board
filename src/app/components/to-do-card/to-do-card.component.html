@@ -1,45 +1,44 @@
-<div pDroppable (onDrop)="drop()" class="p-2 flex flex-column justify-content-center  gap-2 drop-column opacity-80" >
+<div pDroppable (onDrop)="drop()" class="p-2 flex flex-column justify-content-center  gap-2 drop-column opacity-80">
 
-    @for (item of allItems();  track item){
-    
-    <div pDraggable dragEffect = "move"
-    (onDragStart)="dragStart(item)" 
-    (onDragEnd)="dragEnd()"
-    
->       
-    <p-card  >
+    @for (item of allItems(); track item){
 
-        <ng-template pTemplate="header">
-            <div class="flex p-1 bg-primary">
-                <div class="flex-grow-1"><h5>{{item.status}} - {{item.id}} </h5></div> 
-                <p-button (onClick)="menu.toggle($event);" icon="pi pi-ellipsis-v"/>
-                <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" />
+    <div pDraggable dragEffect="move" (onDragStart)="dragStart(item)" (onDragEnd)="dragEnd()">
+        <p-card>
+
+            <ng-template pTemplate="header">
+                <div class="flex pl-4 bg-primary">
+                    <div class="flex-grow-1">
+                        <h5>{{item.status}} - {{item.id}} </h5>
+                    </div>
+                    <p-button (onClick)="menu.toggle($event);" icon="pi pi-ellipsis-v" />
+                    <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" />
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="content">
+                <div class="text-sm">
+                <p> {{item.name}} - {{item.description}}</p>
             </div>
-        </ng-template>
+            </ng-template>
 
-        <ng-template pTemplate="content">
-            <p> {{item.name}}  - {{item.description}}</p>
+        </p-card>
 
-</ng-template>
 
-    </p-card>
-    
-    
-        
+
     </div>
     @if(edit){
-   <edit-item [itemId] =item.id (isClosed)="handleCloseDialog($event)"></edit-item>
-}
+    <edit-item [itemId]=item.id (isClosed)="handleCloseDialog($event)"></edit-item>
+    }
 
-@if(delete){
-    <delete-item [itemId] =item.id (isClosed)="handleCloseDialog($event)" ></delete-item>
- }
+    @if(delete){
+    <delete-item [itemId]=item.id (isClosed)="handleCloseDialog($event)"></delete-item>
+    }
     }
 
 
-   
 
 
-    </div>
 
-    <app-new-item (onItemAdded)="displayNewItems($event)"></app-new-item>
+</div>
+
+<app-new-item (onItemAdded)="displayNewItems($event)"></app-new-item>

@@ -14,11 +14,12 @@ import { TaskStates } from '../../enums/TaskStates';
 import { Store } from '@ngrx/store';
 import { ItemModel } from '../../Item/item.model';
 import { addToDo } from '../../Item/item.actions';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-new-item',
   standalone: true,
-  imports: [CommonModule, InplaceModule, InputTextModule, ReactiveFormsModule],
+  imports: [CommonModule, InplaceModule, InputTextModule, ReactiveFormsModule, CardModule],
   templateUrl: './new-item.component.html',
   styleUrl: './new-item.component.scss',
 
@@ -57,5 +58,7 @@ constructor(private formBuilder: FormBuilder, private allTodoStore : Store<{item
 
     this.onItemAdded.emit(true);
     this.newItemForm.reset();
+    this.visible = false
+    
   }
 }

@@ -1,26 +1,51 @@
-<div class=" p-2 w-full h-2 text-sm opacity-80 border-1 border-round border-200  hover:shadow-3  ">
-
+<!--<div class=" p-2 w-full h-2 text-sm opacity-80 border-1 border-round border-200  hover:shadow-3  ">
+-->
     <div class="card flex justify-content-left gap-2">
-        <p-inplace  [style]="{width: '500px'}" closable="closable">
+
+        <p-inplace  closable="closable">
+            <ng-template class="p-1" pTemplate="closeicon">
+                <span > <i class="pi pi-times" style="font-size: 1rem;"></i>
+                </span>
+             </ng-template>
 
             <ng-template pTemplate="display">
-                <span>Add new item</span>
+                <span class = "custom-inplace-display ">Add New Item
+                </span>
             </ng-template>
             <ng-template pTemplate="content">
-                <form [formGroup]="newItemForm" (submit) = "addNewItemFromStore()">
+              <!--  <div class=" p-2 w-full h-2 text-sm opacity-80 border-1 border-round border-200  hover:shadow-3  ">-->
+                    <p-card class="hover:shadow-3">
+                        <ng-template pTemplate="header">
+                            <div class="flex pl-4 bg-primary  opacity-80">
+                                <div class="flex-grow-1">
+                                    <h4>New Item</h4>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <form [formGroup]="newItemForm" (submit) = "addNewItemFromStore()">
 
-                    <div class="flex flex-column gap-2 p-2 w-full h-5 block">
-                        <input type="text" value="" placeholder="Name" pInputText formControlName="name" />
-                        <input type="text" value="" placeholder="Description" pInputText formControlName="description" />
-
-                        <!--<p-button (click)="addNewItem()" label="Add" [disabled] = "!newItemForm.valid"/>-->
-                        <p-button type = "submit" label="Add" [disabled] = "!newItemForm.valid"/>
-
-                    </div>
-                </form>
+                                <div class="flex flex-column gap-2 w-full h-5">
+                                    <input type="text" value="" placeholder="Name" pInputText formControlName="name" />
+                                    <input type="text" value="" placeholder="Description" pInputText formControlName="description" />
+            
+                                    <!--<p-button (click)="addNewItem()" label="Add" [disabled] = "!newItemForm.valid"/>-->
+                                    <p-button type = "submit" label="Add" [disabled] = "!newItemForm.valid"/>
+            
+                                </div>
+                            </form>
+                        
+                        
+                        </ng-template>
+                    
+                    </p-card>
+                
+            <!--</div> -->
             </ng-template>
+           
+
         </p-inplace>
 
 
     </div>
-</div>
+<!--</div>-->

@@ -6,9 +6,12 @@
     .drop-column {
         border: 1px solid transparent;border-radius: 16px;
         transition: border-color .2s;
-    
+        height: 100vh;
+
         &.p-draggable-enter {
-            border-color: #C55FFC 
+            border-color: #C55FFC;
+            padding: 10px;
+
         }
     }
 
