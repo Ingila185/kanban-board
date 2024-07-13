@@ -9,7 +9,7 @@
              </ng-template>
 
             <ng-template pTemplate="display">
-                <span class = "custom-inplace-display ">Add New Item
+                <span id = "inplacespan" class = "custom-inplace-display ">Add New Item
                 </span>
             </ng-template>
             <ng-template pTemplate="content">
@@ -25,8 +25,8 @@
                             <form [formGroup]="newItemForm" (submit) = "addNewItemFromStore(); inPlace.deactivate()">
 
                                 <div class="flex flex-column gap-2 w-full h-5">
-                                    <input type="text" value="" placeholder="Name" pInputText formControlName="name" />
-                                    <input type="text" value="" placeholder="Description" pInputText formControlName="description" />
+                                    <input id = "name" type="text" value="" placeholder="Name" pInputText formControlName="name" />
+                                    <input id = "description" type="text" value="" placeholder="Description" pInputText formControlName="description" />
                                     <p-button type = "submit" label="Add" [disabled] = "!newItemForm.valid"/>
             
                                 </div>

@@ -66,7 +66,6 @@ export class DoneCardComponent implements OnInit, OnChanges {
         this.allDoneItems.set(res.filter(item=> item.status == TaskStates.Done && item.isActive))
       })
   }
- 
 
   handleCloseDialog($event : boolean)
   {
