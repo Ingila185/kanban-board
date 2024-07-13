@@ -26,6 +26,13 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 - [NgRx Store](https://ngrx.io/)
 
 
+## Linter
+- ESLint 17
+
+## e2e and Component Testing
+- Cypress 13 
+
+
 
 ## Build on Localhost
 
