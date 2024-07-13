@@ -47,9 +47,7 @@ export class ToDoCardComponent implements OnChanges, OnInit{
               {
                   label: 'Edit',
                   icon: 'pi pi-pencil',
-                  command: ()=>{this.edit = true;}
-
-                
+                  command: (event: any)=>{ this.edit = true;}
               },
               {
                   label: 'Delete',

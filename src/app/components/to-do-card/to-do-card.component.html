@@ -11,8 +11,9 @@
                         <h5>{{item.id}} - {{item.status}} - {{item.name}}</h5>
                     </div>
                     <p-button (onClick)="menu.toggle($event);" icon="pi pi-ellipsis-v" />
-                    <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" />
-                </div>
+                <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" />
+                        
+            </div>
             </ng-template>
 
             <ng-template pTemplate="content">
@@ -21,14 +22,15 @@
             </div>
             </ng-template>
 
+            @if(edit){      
+                <edit-item [itemId]=item.id (isClosed)="handleCloseDialog($event)"></edit-item>
+                }
+    
         </p-card>
 
-
-
+     
     </div>
-    @if(edit){       
-    <edit-item [itemId]=item.id (isClosed)="handleCloseDialog($event)"></edit-item>
-    }
+
 
     @if(delete){
     <delete-item [itemId]=item.id (isClosed)="handleCloseDialog($event)"></delete-item>

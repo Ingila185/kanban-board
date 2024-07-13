@@ -19,9 +19,10 @@ import { ItemState } from '../Item/item.state';
 export class EditItemComponent implements OnInit{
   editItemForm!: FormGroup;
   isVisible: boolean = true;
-  @Input() itemId: string = "";
+  @Input() itemId: string = "";  
   isClosed = output<boolean>();
-  
+  counter : number = 0;
+
 
   constructor(private formBuilder: FormBuilder, private allTodoStore : Store<{item: ItemModel[]}>)
   {
@@ -32,8 +33,12 @@ export class EditItemComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.itemId)
+    console.log(this.itemId )
+
+
+
     if(this.isValidString(this.itemId)){
+      console.log("inside if" , this.itemId)
     this.allTodoStore.select(getAllTodoItems).subscribe(
       (res)=>
         {
