@@ -7,7 +7,8 @@
         (onDragStart)="showData($event)"></app-to-do-card>-->
 
         
-      <app-to-do-card [droppedItemFromInProgress]="droppedItemFromInProgressToToDo"
+      <app-to-do-card (draggingSTartFromTodo) = "assignValueToItem($event)" 
+      [droppedItemInToDo]="droppedItemInToDo"
       ></app-to-do-card>
     </div>
 
@@ -16,8 +17,7 @@
     <div class="w-full min-h-screen">
       <h4>In Progress Items</h4>
 
-      <app-implementing-card [droppedItem]="droppedItemFromTodoToInProgress"
-       [droppedItemFromDone]="droppedItemFromDone"
+      <app-implementing-card [droppedItem]="droppedItemToInProgress"
         (onDragInProgressStart)="sendDataToToDoList($event)"></app-implementing-card>
     </div>
 
@@ -25,7 +25,7 @@
     <div class="w-full min-h-screen">
       <h4>Done Items</h4>
       <app-done-card (onDragStart) = "sendDataBack($event)" 
-      [droppedItemFromInProgress]="droppedItemFromDone"></app-done-card>
+      [droppedItemToDone]="droppedItemToDone"></app-done-card>
 
     </div>
 

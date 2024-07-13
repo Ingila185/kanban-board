@@ -8,6 +8,7 @@ import { TaskStates } from '../../enums/TaskStates';
 import { Store } from '@ngrx/store';
 import { ItemModel } from '../../Item/item.model';
 import { getAllTodoItems } from '../../Item/item.selectors';
+import { DragItem } from '../../Interfaces/DragItem';
 
 
 @Component({
@@ -19,48 +20,36 @@ import { getAllTodoItems } from '../../Item/item.selectors';
 })
 export class DoneCardComponent implements OnChanges {
   constructor(private allTodoStore : Store<{item: ItemModel[]}>){}
+  @Input() droppedItemToDone :  DragItem | undefined | null;
+  selectedItem : ItemModel | null = null;
+  onDragStart = output<DragItem>();
+
  
+
+//  DONE_ITEMS: Item[] = DONE_ITEMS;
+  allDoneItems = signal<ItemModel[] | undefined | null>(null);
+
+
+  dragStart(item: ItemModel) {
+    
+    this.selectedItem = item;
+    this.onDragStart.emit({item: this.selectedItem, fromComponentId: TaskStates.Done});
+
+  }
+
+  dragEnd() {
+ }
+
+  drop() {
+    //Update status to Done 
+    this.allTodoStore.dispatch(updateItem({ id: this.droppedItemToDone?.item?.id!, status: TaskStates.Done }))
+  }
   ngOnChanges(changes: SimpleChanges): void {
     this.allTodoStore.select(getAllTodoItems).subscribe(res=>
       {
         this.allDoneItems.set(res.filter(item=> item.status == TaskStates.Done && item.isActive))
       })
   }
-
-
-@Input() droppedItemFromInProgress :  ItemModel | undefined | null;
-
-
-//  DONE_ITEMS: Item[] = DONE_ITEMS;
-  allDoneItems = signal<ItemModel[] | undefined | null>(null);
-  selectedItem = signal<ItemModel | undefined | null>(null);
-
-  onDragStart = output<ItemModel | undefined | null>();
-
-  dragStart(product: ItemModel) {
-    this.selectedItem.set(product);
-    this.onDragStart.emit(this.selectedItem());
-
-  }
-
-  dragEnd() {
-  //  console.log("Drag End" )
-  /*  let currentLeftOverItems: Item[] | undefined | null = this.allDoneItems()?.filter((item: Item) => {
-      return item.id != this.selectedItem()?.id
-    });
-
-   // console.log(currentLeftOverItems)
-    this.allDoneItems.set(currentLeftOverItems);
-    this.selectedItem.set(null);*/
-  }
-
-  drop() {
-    let dataToAdd : ItemModel | undefined | null;
-    dataToAdd =  this.droppedItemFromInProgress;
-   this.allTodoStore.dispatch(updateItem({id: dataToAdd?.id! , status: TaskStates.Done}))
-
-  }
-
  
 
 

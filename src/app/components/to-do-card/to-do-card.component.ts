@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 
-import { Component, signal, Input, effect, inject, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { Component, signal, Input, effect, inject, OnChanges, SimpleChanges, OnInit, output } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { NgFor, NgForOf } from '@angular/common';
@@ -14,6 +14,8 @@ import { ItemModel } from '../../Item/item.model';
 import { getAllTodoItems } from '../../Item/item.selectors';
 import { MenuItem } from 'primeng/api';
 import { DeleteItemComponent } from '../../delete-item/delete-item.component';
+import { DragItem } from '../../Interfaces/DragItem';
+import { updateItem } from '../../Item/item.actions';
 
 
 @Component({
@@ -25,15 +27,15 @@ import { DeleteItemComponent } from '../../delete-item/delete-item.component';
 })
 export class ToDoCardComponent implements OnChanges, OnInit{
   items: MenuItem[] | undefined;
-  @Input() droppedItemFromInProgress: ItemModel | undefined | null;
-
+  @Input() droppedItemInToDo: DragItem | undefined | null;
+  draggingSTartFromTodo = output<DragItem>()
 
   constructor(private allTodoStore : Store<{item: ItemModel[]}>)
   {}
   edit: boolean = false;
   delete: boolean = false;
   allItems =  signal<ItemModel[]>([]);
-  selectedItem = signal<ItemModel | undefined | null>(null);
+  selectedItem : ItemModel | null = null;
   isDragging: boolean = false;
 
   ngOnInit(): void {
@@ -75,46 +77,18 @@ export class ToDoCardComponent implements OnChanges, OnInit{
   }
 
   dragStart(item: ItemModel) {
-
     this.isDragging = true;
-
-    this.selectedItem.set(item);
-    //console.log("dragging start", this.selectedItem())  
-
+    this.selectedItem = item;
+    this.draggingSTartFromTodo.emit({item: this.selectedItem, fromComponentId: TaskStates.ToDo})
   }
 
    dragEnd() {
-   /* this.isDragging = false;
-
-      console.log("Drag End in to-do" , this.selectedItem()?.id)
-    let currentLeftOverItems: Item[] | undefined | null = this.allItems()?.filter((item: Item) => {
-      return item.id != this.selectedItem()?.id
-
-    });
-
-   // console.log(currentLeftOverItems)
-
-    this.allItems.set(currentLeftOverItems);
-    this.selectedItem.set(null);
-*/
-
-
-//console.log(this.store.getAllItems());
-
-
+    this.selectedItem = null;
+    
   }
 
-  drop() {
-   /* console.log("Dropped Item in To-Do", this.droppedItemFromInProgress )
-
-    
-    if(this.droppedItemFromInProgress != null || this.droppedItemFromInProgress != undefined)
-    {
-    let remainingInProgressItems: Item[] | undefined | null = this.allItems();
-    remainingInProgressItems?.push(this.droppedItemFromInProgress!);
-    this.allItems.set(remainingInProgressItems);
-   // console.log("Updated All Items", this.allItems())
-  }*/
+  drop() {   
+    this.allTodoStore.dispatch(updateItem({ id: this.droppedItemInToDo?.item?.id!, status: TaskStates.ToDo }))
   }
 
   displayNewItems($event : ItemModel[])

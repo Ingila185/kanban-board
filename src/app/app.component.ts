@@ -6,6 +6,7 @@ import { ToDoCardComponent } from './components/to-do-card/to-do-card.component'
 import { ImplementingCardComponent } from './components/implementing-card/implementing-card.component'; 
 import { DoneCardComponent } from './components/done-card/done-card.component';
 import { ItemModel } from './Item/item.model';
+import { DragItem } from './Interfaces/DragItem';
 
 @Component({
   selector: 'app-root',
@@ -15,36 +16,28 @@ import { ItemModel } from './Item/item.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  droppedItemFromTodoToInProgress: ItemModel | undefined | null;
-  droppedItemFromInProgressToToDo: ItemModel | undefined | null;
-  droppedItemFromDone: ItemModel | undefined | null;
+  droppedItemToInProgress: DragItem | undefined;
+  droppedItemInToDo: DragItem | undefined | null;
+  droppedItemToDone: DragItem | undefined | null;
 
 
   constructor(){}
   title = 'kanban-board';
-  showData(event : ItemModel | undefined | null)
+  assignValueToItem(event : DragItem)
   {
-    console.log("data from todo" , event);
-
-    this.droppedItemFromTodoToInProgress = event;
-    
+    this.droppedItemToInProgress = event
   }
 
-  sendDataToToDoList(event: ItemModel | undefined | null)
+  sendDataToToDoList(event: DragItem | undefined | null)
   {
-    console.log('data from Implementing' , event)
-    this.droppedItemFromInProgressToToDo = event;
-    //console.log('called' , this.droppedItemFromInProgressToToDo)
-
-    this.droppedItemFromDone = event;
+    this.droppedItemInToDo = event;
+    this.droppedItemToDone = event;
 
   }
 
-  sendDataBack(event: ItemModel | undefined | null)
+  sendDataBack(event: DragItem | undefined | null)
   {
-    console.log("data from done" , event);
-
-    this.droppedItemFromDone = event
+    this.droppedItemToDone = event
   }
 
 }
