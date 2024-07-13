@@ -62,10 +62,6 @@ export class ToDoCardComponent implements OnChanges, OnInit{
       }
   ];
 
-
-
-  
-
   }
 
 

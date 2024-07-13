@@ -1,8 +1,8 @@
 <main>
   <app-menu-bar></app-menu-bar>
 
-  <div class="flex gap-5 justify-content-around ">
-    <div class="w-full min-h-screen">
+  <div class="flex lg:flex-row xl:flex-row md:flex-column sm:flex-column gap-5 justify-content-around ">
+    <div class="w-full lg:min-h-screen">
       <h4>To Do Items</h4>
       <!--<app-to-do-card [droppedItemFromInProgress]="droppedItemFromInProgressToToDo"
         (onDragStart)="showData($event)"></app-to-do-card>-->
@@ -14,7 +14,7 @@
 
 
 
-    <div class="w-full min-h-screen">
+    <div class="w-full lg:min-h-screen">
       <h4>In Progress Items</h4>
 
       <app-implementing-card [droppedItem]="droppedItemToInProgress"
@@ -22,7 +22,7 @@
     </div>
 
 
-    <div class="w-full min-h-screen">
+    <div class="w-full lg:min-h-screen">
       <h4>Done Items</h4>
       <app-done-card (onDragStart) = "sendDataBack($event)" 
       [droppedItemToDone]="droppedItemToDone"></app-done-card>

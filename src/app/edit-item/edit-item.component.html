@@ -1,6 +1,6 @@
   
   <p-dialog header="Edit Item" [modal]="true" [(visible)]="isVisible" [style]="{ width: '25rem' }">
-    <span class="p-text-secondary block mb-5">Edit item</span>
+    <span class="p-text-secondary block mb-5">Edit item {{itemId}}</span>
     <form [formGroup]="editItemForm" (submit) = "editItem()">
 
     <div class="flex align-items-center gap-3 mb-3">

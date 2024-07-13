@@ -32,6 +32,7 @@ export class EditItemComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    console.log(this.itemId)
     if(this.isValidString(this.itemId)){
     this.allTodoStore.select(getAllTodoItems).subscribe(
       (res)=>
@@ -54,7 +55,6 @@ export class EditItemComponent implements OnInit{
     let description = this.editItemForm.controls['description'].value.toString();
     this.allTodoStore.dispatch(updateItemFields({id: this.itemId, name: name, description: description}))
     this.isVisible = false;
-
     this.isClosed.emit(true);
     
 

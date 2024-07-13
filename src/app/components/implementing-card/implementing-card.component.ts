@@ -25,6 +25,7 @@ export class ImplementingCardComponent implements OnChanges, OnInit {
   @Input() droppedItem: DragItem | undefined | null;
   onDragInProgressStart = output<DragItem | undefined | null>();
   inProgressItems = signal<ItemModel[] | undefined | null>([]);
+  selectedItem : ItemModel | null = null;
 
 
   items: MenuItem[] | undefined;
@@ -68,7 +69,6 @@ export class ImplementingCardComponent implements OnChanges, OnInit {
 
   }
 
-  selectedItem = signal<ItemModel | undefined | null>(null);
 
 
   handleDrop($event: any) {
@@ -77,18 +77,12 @@ export class ImplementingCardComponent implements OnChanges, OnInit {
   }
 
   dragStart(item: ItemModel) {
-    this.selectedItem.set(item);
+    this.selectedItem = item;
     this.onDragInProgressStart.emit({item: item , fromComponentId: TaskStates.InProgress});
   }
 
   dragEnd() {
-  /*  let currentLeftOverItems: ItemModel[] | undefined | null = this.inProgressItems()?.filter((item: ItemModel) => {
-      return item.id != this.selectedItem()?.id
-    });
-    this.inProgressItems.set(currentLeftOverItems);
-    this.selectedItem.set(null);
-
-*/
+    this.selectedItem = null;
   }
 
   handleCloseDialog($event : boolean)
