@@ -1,4 +1,5 @@
-<div pDroppable (onDrop)="drop()" class="p-2 flex flex-column justify-content-center  gap-2 drop-column opacity-80">
+<div pDroppable (onDrop)="drop()" class="p-2 flex flex-column justify-content-center  
+gap-2 drop-column opacity-80">
 
     @for (item of allItems(); track item){
 
@@ -43,4 +44,6 @@
 
 </div>
 
+<div class="pt-2">
 <app-new-item (onItemAdded)="displayNewItems($event)"></app-new-item>
+</div>

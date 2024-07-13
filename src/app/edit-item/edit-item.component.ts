@@ -7,7 +7,6 @@ import { ItemModel } from '../Item/item.model';
 import { getAllTodoItems } from '../Item/item.selectors';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { updateItemFields } from '../Item/item.actions';
-import { ItemState } from '../Item/item.state';
 
 @Component({
   selector: 'edit-item',
@@ -33,12 +32,7 @@ export class EditItemComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.itemId )
-
-
-
     if(this.isValidString(this.itemId)){
-      console.log("inside if" , this.itemId)
     this.allTodoStore.select(getAllTodoItems).subscribe(
       (res)=>
         {
@@ -61,8 +55,6 @@ export class EditItemComponent implements OnInit{
     this.allTodoStore.dispatch(updateItemFields({id: this.itemId, name: name, description: description}))
     this.isVisible = false;
     this.isClosed.emit(true);
-    
-
   }
 
   closeDialog()

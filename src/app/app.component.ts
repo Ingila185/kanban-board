@@ -11,7 +11,7 @@ import { DragItem } from './Interfaces/DragItem';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DividerModule, RouterOutlet, MenuBarComponent, ToDoCardComponent, ImplementingCardComponent, DoneCardComponent],
+  imports: [DividerModule,  RouterOutlet, MenuBarComponent, ToDoCardComponent, ImplementingCardComponent, DoneCardComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

@@ -46,12 +46,6 @@ export class DoneCardComponent implements OnInit, OnChanges {
   selectedItem : ItemModel | null = null;
   onDragStart = output<DragItem>();
   delete: boolean = false;
-
- 
-
-//  DONE_ITEMS: Item[] = DONE_ITEMS;
-
-
   dragStart(item: ItemModel) {
     
     this.selectedItem = item;

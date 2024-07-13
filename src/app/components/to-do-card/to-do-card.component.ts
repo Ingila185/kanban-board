@@ -12,7 +12,7 @@ import { TaskStates } from '../../enums/TaskStates';
 import { Store } from '@ngrx/store';
 import { ItemModel } from '../../Item/item.model';
 import { getAllTodoItems } from '../../Item/item.selectors';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MenuItemCommandEvent } from 'primeng/api';
 import { DeleteItemComponent } from '../../delete-item/delete-item.component';
 import { DragItem } from '../../Interfaces/DragItem';
 import { updateItem } from '../../Item/item.actions';
@@ -37,6 +37,8 @@ export class ToDoCardComponent implements OnChanges, OnInit{
   allItems =  signal<ItemModel[]>([]);
   selectedItem : ItemModel | null = null;
   isDragging: boolean = false;
+  isEditable: string = '';
+
 
   ngOnInit(): void {
 
@@ -47,7 +49,7 @@ export class ToDoCardComponent implements OnChanges, OnInit{
               {
                   label: 'Edit',
                   icon: 'pi pi-pencil',
-                  command: (event: any)=>{ this.edit = true;}
+                  command: ()=>{ this.edit = true;}
               },
               {
                   label: 'Delete',

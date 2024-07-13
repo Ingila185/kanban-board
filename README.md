@@ -19,11 +19,11 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 
 ## UI/UX Frameworks
-- PrimeNG
-- PrimeFlex
+- [PrimeNG](https://primeng.org/)
+- [PrimeFlex](https://primeflex.org/)
 - Scss
 - Reactive Forms
-- NgRx Store
+- [NgRx Store](https://ngrx.io/)
 
 
 
