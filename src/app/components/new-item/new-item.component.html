@@ -2,7 +2,7 @@
 -->
     <div class="card flex justify-content-left gap-2">
 
-        <p-inplace  closable="closable">
+        <p-inplace #inPlace closable="closable">
             <ng-template class="p-1" pTemplate="closeicon">
                 <span > <i class="pi pi-times" style="font-size: 1rem;"></i>
                 </span>
@@ -23,7 +23,7 @@
                             </div>
                         </ng-template>
                         <ng-template pTemplate="content">
-                            <form [formGroup]="newItemForm" (submit) = "addNewItemFromStore()">
+                            <form [formGroup]="newItemForm" (submit) = "addNewItemFromStore(); inPlace.deactivate()">
 
                                 <div class="flex flex-column gap-2 w-full h-5">
                                     <input type="text" value="" placeholder="Name" pInputText formControlName="name" />

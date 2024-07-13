@@ -27,7 +27,6 @@
 
     </div>
     @if(edit){       
-        {{item.id}}
     <edit-item [itemId]=item.id (isClosed)="handleCloseDialog($event)"></edit-item>
     }
 
