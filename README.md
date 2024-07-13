@@ -4,8 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
+- Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## State Management
 - The reactivity is added through [signals()](https://angular.dev/guide/signals) API.
@@ -19,18 +18,21 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 
 ## UI/UX Frameworks
+- [Angular 17](https://angular.dev/) 
 - [PrimeNG](https://primeng.org/)
 - [PrimeFlex](https://primeflex.org/)
 - Scss
 - Reactive Forms
-- [NgRx Store](https://ngrx.io/)
+- [NgRx Store](https://ngrx.io/) for state management.
 
 
 ## Linter
 - ESLint 17
 
 ## e2e and Component Testing
-- Cypress 13 
+- [Cypress 13](https://docs.cypress.io/) 
+- Run `npx cypress open` or `npx cypress run` to execute the test suite.
+
 
 
 
