@@ -13,7 +13,6 @@
                 </span>
             </ng-template>
             <ng-template pTemplate="content">
-              <!--  <div class=" p-2 w-full h-2 text-sm opacity-80 border-1 border-round border-200  hover:shadow-3  ">-->
                     <p-card class="hover:shadow-3">
                         <ng-template pTemplate="header">
                             <div class="flex pl-4 bg-primary  opacity-80">
@@ -28,19 +27,15 @@
                                 <div class="flex flex-column gap-2 w-full h-5">
                                     <input type="text" value="" placeholder="Name" pInputText formControlName="name" />
                                     <input type="text" value="" placeholder="Description" pInputText formControlName="description" />
-            
-                                    <!--<p-button (click)="addNewItem()" label="Add" [disabled] = "!newItemForm.valid"/>-->
                                     <p-button type = "submit" label="Add" [disabled] = "!newItemForm.valid"/>
             
                                 </div>
                             </form>
                         
-                        
                         </ng-template>
                     
                     </p-card>
                 
-            <!--</div> -->
             </ng-template>
            
 

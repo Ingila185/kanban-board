@@ -5,10 +5,15 @@
 
     .drop-column {
         border: 1px solid transparent; border-radius: 16px;
+        min-width: 33vw;
+        max-width: 100vh;
+
         transition: border-color .2s;
     
         &.p-draggable-enter {
-            border-color: #C55FFC 
+            border-color: #C55FFC;
+            padding: 10px;
+
         }
     }
 }

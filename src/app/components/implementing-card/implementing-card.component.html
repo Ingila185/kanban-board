@@ -1,11 +1,12 @@
-<div pDroppable (onDrop)="handleDrop($event)" class="p-2 flex flex-column gap-2 drop-column opacity-80" >
+<div pDroppable (onDrop)="handleDrop($event)" 
+class=" p-2 flex flex-column gap-2 drop-column opacity-80" >
 
 @for (item of inProgressItems();  track item){
 
 <div pDraggable dragEffect = "move"
 (onDragStart)="dragStart(item)" 
 (onDragEnd)="dragEnd()"
-
+class="scalein animation-duration-400 animation-iteration-1"
 >
 <p-card subheader = "Details" >
 
