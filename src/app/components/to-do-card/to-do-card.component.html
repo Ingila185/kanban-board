@@ -12,7 +12,7 @@ gap-2 drop-column opacity-80">
                     <div class="flex-grow-1">
                         <h5>{{itemToDo.id}} - {{itemToDo.status}} - {{itemToDo.name}}</h5>
                     </div>
-                    <p-button (onClick)="menu.toggle($event);" icon="pi pi-ellipsis-v" />
+                    <p-button id = "menuOptions" (onClick)="menu.toggle($event);" icon="pi pi-ellipsis-v" />
                 <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" />
                  <!-- <p-menu #menu class="justify-content-end text-sm" [model]="items" [popup]="true" >
                     <ng-template pTemplate="item" let-item>

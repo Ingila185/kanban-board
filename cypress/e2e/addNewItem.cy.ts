@@ -10,6 +10,7 @@ describe('Page Load Spec', () => {
     cy.get('#name').type('Test Name');
     cy.get('#description').type('Test Description');
     cy.get('form').submit();
+    cy.get('body').contains('Test Name');
   })
 
 

@@ -7,6 +7,7 @@ import { ImplementingCardComponent } from './components/implementing-card/implem
 import { DoneCardComponent } from './components/done-card/done-card.component';
 import { DragItem } from './Interfaces/DragItem';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -20,7 +21,10 @@ export class AppComponent {
   droppedItemToDone: DragItem | undefined | null;
 
 
-  constructor(){}
+  constructor()
+  {
+  }
+
   title = 'kanban-board';
   assignValueToItem(event : DragItem)
   {

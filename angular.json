@@ -25,8 +25,19 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
+              "src/styles.css",
+              {
+                "input": "src/app/styles/md-dark-deeppurple.scss",
+                "bundleName": "md-dark-deeppurple",
+                "inject": false
+            },
+            {
+            "input": "src/app/styles/md-light-deeppurple.scss",
+            "bundleName": "md-light-deeppurple",
+            "inject": false
+            } 
+
+                        ],
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -89,8 +100,19 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ],
+              "src/styles.css",
+              {
+                "input": "src/app/styles/md-dark-deeppurple.scss",
+                "bundleName": "md-dark-deeppurple",
+                "inject": false
+            },
+            {
+            "input": "src/app/styles/md-light-deeppurple.scss",
+            "bundleName": "md-light-deeppurple",
+            "inject": false
+            } 
+
+             ],
             "scripts": []
           }
         },
