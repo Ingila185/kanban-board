@@ -1,11 +1,9 @@
-    <p-toolbar     styleClass="bg-primary shadow-2  opacity-80">
-   
+<p-toolbar styleClass="bg-primary shadow-2  opacity-80">
+
     <div class="flex-grow">
-    Kanban Board    
+        Kanban Board
     </div>
-    <p-toggleButton styleClass = "bg-primary shadow-2 text-white" 
-    [(ngModel)]="checked"  onIcon= "pi pi-sun"  offIcon="pi pi-moon"
+    <p-toggleButton styleClass="bg-primary shadow-2 text-white" [(ngModel)]="checked" onIcon="pi pi-sun"
+        offIcon="pi pi-moon" (click)="changeTheme()" />
 
-    (click)="changeTheme()" />
-
-    </p-toolbar>
+</p-toolbar>

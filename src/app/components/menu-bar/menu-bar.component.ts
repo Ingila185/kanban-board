@@ -12,18 +12,15 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
   styleUrl: './menu-bar.component.css'
 })
 export class MenuBarComponent {
-  constructor(private themeService : ThemeService)
-  {
+  constructor(private themeService: ThemeService) {
 
   }
   checked: boolean = false;
 
-  changeTheme()
-  {
-    let theme = (this.checked) ? "md-dark-deeppurple" : "md-light-deeppurple"
-    console.log("working")
+  changeTheme() {
+    let theme = (this.checked) ? "lara-dark-teal" : "lara-light-teal"
     this.themeService.switchTheme(theme);
-    
+
   }
 
 }

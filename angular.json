@@ -27,13 +27,13 @@
             "styles": [
               "src/styles.css",
               {
-                "input": "src/app/styles/md-dark-deeppurple.scss",
-                "bundleName": "md-dark-deeppurple",
+                "input": "src/app/styles/lara-dark-teal.scss",
+                "bundleName": "lara-dark-teal",
                 "inject": false
             },
             {
-            "input": "src/app/styles/md-light-deeppurple.scss",
-            "bundleName": "md-light-deeppurple",
+            "input": "src/app/styles/lara-light-teal.scss",
+            "bundleName": "lara-light-teal",
             "inject": false
             } 
 
@@ -102,13 +102,13 @@
             "styles": [
               "src/styles.css",
               {
-                "input": "src/app/styles/md-dark-deeppurple.scss",
-                "bundleName": "md-dark-deeppurple",
+                "input": "src/app/styles/lara-dark-teal.scss",
+                "bundleName": "lara-dark-teal",
                 "inject": false
             },
             {
-            "input": "src/app/styles/md-light-deeppurple.scss",
-            "bundleName": "md-light-deeppurple",
+            "input": "src/app/styles/lara-light-teal.scss",
+            "bundleName": "lara-light-teal",
             "inject": false
             } 
 
