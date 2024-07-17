@@ -26,7 +26,8 @@ export class ImplementingCardComponent implements OnChanges, OnInit {
   onDragInProgressStart = output<DragItem | undefined | null>();
   inProgressItems = signal<ItemModel[] | undefined | null>([]);
   selectedItem : ItemModel | null = null;
-
+  editId: string = '';
+  
 
   items: MenuItem[] | undefined;
   edit: boolean = false;
@@ -42,11 +43,6 @@ export class ImplementingCardComponent implements OnChanges, OnInit {
       {
         label: 'Options',
         items: [
-          {
-            label: 'Edit',
-            icon: 'pi pi-pencil',
-            command: () => { this.edit = true }
-          },
           {
             label: 'Delete',
             icon: 'pi pi-trash',
@@ -89,4 +85,15 @@ export class ImplementingCardComponent implements OnChanges, OnInit {
     this.delete = !$event
   }
 
+
+  assignEditId(item : ItemModel)
+  {
+     this.editId = item.id
+  }
+
+  handleEdit(item: any)
+  {
+    this.assignEditId(item)
+    this.edit = true;
+  }
 }

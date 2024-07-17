@@ -32,6 +32,7 @@ export class EditItemComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    console.log(this.itemId);
     if(this.isValidString(this.itemId)){
     this.allTodoStore.select(getAllTodoItems).subscribe(
       (res)=>

@@ -47,11 +47,6 @@ export class ToDoCardComponent implements OnChanges, OnInit{
           label: 'Options',
           items: [
               {
-                  label: 'Edit',
-                  icon: 'pi pi-pencil',
-                  command: ()=>{ this.edit = true;}
-              },
-              {
                   label: 'Delete',
                   icon: 'pi pi-trash',
                   command: ()=>{ this.delete = true}
@@ -106,8 +101,13 @@ export class ToDoCardComponent implements OnChanges, OnInit{
 
   assignEditId(item : ItemModel)
   {
-    console.log(item)
-    this.editId = item.id
+     this.editId = item.id
+  }
+
+  handleEdit(item: any)
+  {
+    this.assignEditId(item)
+    this.edit = true;
   }
 
 }

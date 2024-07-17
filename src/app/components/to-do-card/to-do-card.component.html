@@ -29,13 +29,20 @@ gap-2 drop-column opacity-80">
             </ng-template>
 
             <ng-template pTemplate="content">
-                <div class="text-md">
+                <div class="text-md sm:text-sm xs:text-xs lg:text-md">
                 <span>{{itemToDo.description}}</span>
             </div>
             </ng-template>
 
+            <ng-template pTemplate="footer">
+                <div class="flex justify-content-end">
+                <p-button  label="Edit" color = "primary" (click) = "handleEdit(itemToDo)"/>
+            </div>
+</ng-template>
+
+
             @if(edit){      
-                <edit-item [itemId]=itemToDo.id (isClosed)="handleCloseDialog($event)"></edit-item>
+                <edit-item [itemId]=editId (isClosed)="handleCloseDialog($event)"></edit-item>
                 }
     
         </p-card>
