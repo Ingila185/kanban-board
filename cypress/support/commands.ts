@@ -1,4 +1,10 @@
 /// <reference types="cypress" />
+
+import cypress from "cypress";
+
+require("cypress-drag-drop");
+import 'cypress-drag-drop'; // Import the plugin (for clarity)
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite

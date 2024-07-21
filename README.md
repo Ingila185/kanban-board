@@ -9,6 +9,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## State Management
 - The reactivity is added through [signals()](https://angular.dev/guide/signals) API.
 - Component states are managed by [NgRx Store](https://ngrx.io/).
+- The state changes are debugged using [NgRx DevTools](https://ngrx.io/guide/store-devtools)
+ 
 
 ## Important Assumptions
 - Once an Item is Done, it cannot be edited but only deleted.

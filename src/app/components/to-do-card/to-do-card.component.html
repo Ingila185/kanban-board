@@ -5,7 +5,7 @@ gap-2 drop-column opacity-80">
 
     <div class = "fadeindown animation-duration-400 animation-iteration-1" pDraggable
      dragEffect="move" (onDragStart)="dragStart(itemToDo)" (onDragEnd)="dragEnd()">
-        <p-card subheader = "Details">
+        <p-card id = "dragElement" subheader = "Details">
 
             <ng-template pTemplate="header">
                 <div class="flex pl-4 bg-primary">
@@ -36,7 +36,7 @@ gap-2 drop-column opacity-80">
 
             <ng-template pTemplate="footer">
                 <div class="flex justify-content-end">
-                <p-button  label="Edit" color = "primary" (click) = "handleEdit(itemToDo)"/>
+                <p-button  id="edit" label="Edit" color = "primary" (click) = "handleEdit(itemToDo)"/>
             </div>
 </ng-template>
 
